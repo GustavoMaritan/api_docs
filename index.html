@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Docs Payment</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <style>
+        .cor1 {
+            background-color: blue
+        }
+
+        .cor2 {
+            background-color: green
+        }
+
+        .cor3 {
+            background-color: red
+        }
+
+        .top-menu {
+            display: flex;
+            padding-left: 10px;
+            background-color: #ab47bc;
+            width: 100%;
+            height: 56px;
+            line-height: 56px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .top-menu>.icon {
+            opacity: 0;
+            width: 0;
+            transition: opacity .5s ease-in-out;
+            transition: width .1s ease-in-out;
+        }
+
+        .top-menu>.title {
+            color: #fff;
+            font-size: 21px;
+            padding-left: 19px;
+        }
+
+        .conteudo {
+            display: flex;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        .conteudo>.menu {
+            width: 280px;
+            overflow-y: auto;
+            transition: width .5s ease-in-out;
+            border-right: 1px solid #d8d8d8;
+            box-shadow: -1px 2px 5px #d8d8d8;
+        }
+
+        .conteudo>.corpo {
+            width: 100%;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .conteudo>.menu {
+                width: 0;
+            }
+            .top-menu>.icon {
+                opacity: 1;
+                width: 10px;
+            }
+        }
+
+        @media only screen and (min-width: 900px) {}
+    </style>
+</head>
+
+<body>
+    <nav class="top-menu">
+        <div class="icon">
+            <i class="material-icons">dehaze</i>
+        </div>
+        <div class="title">Docs Payment</div>
+    </nav>
+    <div class="conteudo">
+        <div class="menu">
+        </div>
+        <div class="corpo">
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+</body>
+
+</html>
