@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
     <style>
         .cor1 {
@@ -24,59 +25,35 @@
             background-color: red
         }
 
-        .top-menu {
-            display: flex;
-            padding-left: 10px;
-            background-color: #ab47bc;
+        .route {
             width: 100%;
-            height: 56px;
-            line-height: 56px;
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+            height: 38px;
+            background-color: antiquewhite;
         }
 
-        .top-menu>.icon {
-            opacity: 0;
-            width: 0;
-            transition: opacity .5s ease-in-out;
-            transition: width .1s ease-in-out;
+        .collapsible .collapsible-body .card-label {
+            font-weight: bold;
         }
 
-        .top-menu>.title {
-            color: #fff;
-            font-size: 21px;
-            padding-left: 19px;
+        .collapsible .collapsible-body .card-text {
+            padding: 6px;
+            background-color: #f1f1f1;
+            border-radius: 3px;
         }
 
-        .conteudo {
-            display: flex;
-            position: fixed;
-            width: 100%;
-            height: 100%;
+        .collection>.collection-item>.json {
+            display: none;
+            transition: height 1s ease-in-out;
         }
 
-        .conteudo>.menu {
-            width: 280px;
-            overflow-y: auto;
-            transition: width .5s ease-in-out;
-            border-right: 1px solid #d8d8d8;
-            box-shadow: -1px 2px 5px #d8d8d8;
+        .collection>.collection-item>.json.open {
+            display: block;
         }
 
-        .conteudo>.corpo {
-            width: 100%;
+        .collection>.collection-item>.title {
+            cursor: pointer;
+            color: #21bdb6
         }
-
-        @media only screen and (max-width: 900px) {
-            .conteudo>.menu {
-                width: 0;
-            }
-            .top-menu>.icon {
-                opacity: 1;
-                width: 10px;
-            }
-        }
-
-        @media only screen and (min-width: 900px) {}
     </style>
 </head>
 
@@ -88,15 +65,214 @@
         <div class="title">Docs Payment</div>
     </nav>
     <div class="conteudo">
-        <div class="menu">
-        </div>
+        <div class="menu"></div>
+        <div class="menu-aguarde"></div>
         <div class="corpo">
+            <div class="row">
+                <div class="section">
+                    <h6>http://localhost:11002/api</h6>
+                    <h5>Headers</h5>
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Authorization</td>
+                                <td>String</td>
+                                <td>Chave gerada pelo admin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section bold">
+                    <h5>Boletos</h5>
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">
+                                <span style="text-transform: uppercase;font-weight: bold;">post</span>
+                                <span style="padding-left: 20px;color: #848484;">Gerar</span>
+                            </div>
+                            <div class="collapsible-body" style="display:block">
+                                <div class="row">
+                                    <div class="col s12 card-label">Url</div>
+                                    <div class="col s12 card-text">http://localhost:11002/api/boleto/:banco?t</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 card-label">Descrição</div>
+                                    <div class="col s12 card-text">Método responsavel por gerar boleto e retornar url para impressão ou download.</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 card-label">Parâmetros</div>
+                                    <div class="col s12 card-text">
+                                        <table class="highlight" style="background-color: white;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome</th>
+                                                    <th class="center">Tipo</th>
+                                                    <th>Opções</th>
+                                                    <th class="center">Default</th>
+                                                    <th class="center">Obrigatório</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>banco</td>
+                                                    <td class="center">String</td>
+                                                    <td>brasil, sicredi, sicoob</td>
+                                                    <td class="center"></td>
+                                                    <td class="center">Sim</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>t</td>
+                                                    <td class="center">String</td>
+                                                    <td>print, download</td>
+                                                    <td class="center">print</td>
+                                                    <td class="center">Não</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 card-label">Opções Body [Parâmetro=banco]</div>
+                                    <div class="col s12 card-text">
+                                        <div class="collection">
+                                            <div class="collection-item">
+                                                <div class="title">Brasil</div>
+                                                <div class="json">
+                                                    <pre>
+{
+    dataImpressao: { type: Date, descricao: 'Data impressão do boleto' },
+    dataGeracaoBoleto: Date,
+    numeroDocumento: String,
+    especie: String,
+    carteira: String,
+    numeroConvenio: String,
+    pagador: {
+        nome: String,
+        edereco: String,
+        cep: String,
+        cpfCnpj: String,
+    },
+    beneficiario: {
+        nome: String,
+        cpfCnpj: String,
+        codigo: String,
+        codigoDigito: String,
+        agencia: String,
+        agenciaDigito: String
+    },
+    parcelas: [{
+        numero: Number,
+        valor: Number,
+        vencimento: Date,
+        nossoNumero: String
+    }]
+}         
+                                                    </pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 card-label">Retorno OK</div>
+                                    <div class="col s12 card-text">
+                                        <pre>
+{
+    url: { type: String, descricao: 'Url gerada para baixar ou imprimir o boleto' },
+    idBoleto: { type: String, descricao: 'Id gerado no payment para relacionamento com api cliente' },
+    parcelas: {
+        type: Array,
+        descricao: 'Dados da parcela',
+        content: {
+            numero: { type: Number, descricao: 'Número da parcela' },
+            nossoNumero: { type: String, descricao: 'Nosso número ja gerado com o dígito' },
+            valor: { type: Number, descricao: 'Valor da parcela' },
+            dataVencimento: { type: Date, descricao: 'Data vencimento da parcela' }
+        }
+    }
+}
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                <strong style="text-transform: uppercase">get</strong>
+                                <span style="padding-left: 20px;color: #848484;">Imprimir</span>
+                            </div>
+                            <div class="collapsible-body">
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                    <h5>Borderos</h5>
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">
+                                <strong style="text-transform: uppercase">post</strong>
+                                <span style="padding-left: 20px;color: #848484;">Gerar Boleto</span>
+                            </div>
+                            <div class="collapsible-body">
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                <strong style="text-transform: uppercase">get</strong>
+                                <span style="padding-left: 20px;color: #848484;">Gerar Boleto</span>
+                            </div>
+                            <div class="collapsible-body">
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
+
+    <script>
+        $('.top-menu>.icon,.conteudo>.menu-aguarde').click(() => {
+            !$('.conteudo>.menu').hasClass('open')
+                ? $('.conteudo>.menu,.conteudo>.menu-aguarde').addClass('open')
+                : $('.conteudo>.menu,.conteudo>.menu-aguarde').removeClass('open');
+        })
+        $(window).resize((x, y) => {
+            if (window.innerWidth > 900)
+                $('.conteudo>.menu,.conteudo>.menu-aguarde').removeClass('open');
+        });
+        $('.collapsible>li>.collapsible-header').click(function () {
+            let elem = $(this).closest('.collapsible>li').find('.collapsible-body');
+            $('.collapsible-body').each(function () {
+                if (this != elem[0]) $(this).css({ display: 'none' })
+            })
+            elem.css({ display: elem.css('display') == 'none' ? 'block' : 'none' })
+        });
+
+        $('.collection>.collection-item>.title').click(function () {
+            let elem = $(this).closest('.collection-item').find('.json');
+
+            !$(elem).hasClass('open')
+                ? $(elem).addClass('open')
+                : $(elem).removeClass('open');
+        });
+    </script>
 </body>
 
 </html>
