@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col s12 card-label">Opções Body [Parâmetro=banco]</div>
+    <div class="col s12 card-text">
+        <div class="collection">
+            <div class="collection-item">
+                <div class="title">Brasil</div>
+                <div class="json">
+                    <pre>
+{
+dataImpressao: { type: Date, descricao: 'Data impressão do boleto' },
+dataGeracaoBoleto: Date,
+numeroDocumento: String,
+especie: String,
+carteira: String,
+numeroConvenio: String,
+pagador: {
+nome: String,
+edereco: String,
+cep: String,
+cpfCnpj: String,
+},
+beneficiario: {
+nome: String,
+cpfCnpj: String,
+codigo: String,
+codigoDigito: String,
+agencia: String,
+agenciaDigito: String
+},
+parcelas: [{
+numero: Number,
+valor: Number,
+vencimento: Date,
+nossoNumero: String
+}]
+}         
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

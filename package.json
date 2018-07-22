@@ -1,0 +1,22 @@
+{
+  "name": "api_docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gustavomaritan:git045183@github.com/GustavoMaritan/api_docs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GustavoMaritan/api_docs/issues"
+  },
+  "homepage": "https://github.com/GustavoMaritan/api_docs#readme"
+}

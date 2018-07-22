@@ -11,50 +11,7 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
-
-    <style>
-        .cor1 {
-            background-color: blue
-        }
-
-        .cor2 {
-            background-color: green
-        }
-
-        .cor3 {
-            background-color: red
-        }
-
-        .route {
-            width: 100%;
-            height: 38px;
-            background-color: antiquewhite;
-        }
-
-        .collapsible .collapsible-body .card-label {
-            font-weight: bold;
-        }
-
-        .collapsible .collapsible-body .card-text {
-            padding: 6px;
-            background-color: #f1f1f1;
-            border-radius: 3px;
-        }
-
-        .collection>.collection-item>.json {
-            display: none;
-            transition: height 1s ease-in-out;
-        }
-
-        .collection>.collection-item>.json.open {
-            display: block;
-        }
-
-        .collection>.collection-item>.title {
-            cursor: pointer;
-            color: #21bdb6
-        }
-    </style>
+    <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -90,7 +47,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="section bold">
+                <div class="section">
                     <h5>Boletos</h5>
                     <ul class="collapsible">
                         <li>
@@ -216,29 +173,6 @@
                     </ul>
                 </div>
                 <div class="divider"></div>
-                <div class="section">
-                    <h5>Borderos</h5>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">
-                                <strong style="text-transform: uppercase">post</strong>
-                                <span style="padding-left: 20px;color: #848484;">Gerar Boleto</span>
-                            </div>
-                            <div class="collapsible-body">
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">
-                                <strong style="text-transform: uppercase">get</strong>
-                                <span style="padding-left: 20px;color: #848484;">Gerar Boleto</span>
-                            </div>
-                            <div class="collapsible-body">
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -246,33 +180,7 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
-
-    <script>
-        $('.top-menu>.icon,.conteudo>.menu-aguarde').click(() => {
-            !$('.conteudo>.menu').hasClass('open')
-                ? $('.conteudo>.menu,.conteudo>.menu-aguarde').addClass('open')
-                : $('.conteudo>.menu,.conteudo>.menu-aguarde').removeClass('open');
-        })
-        $(window).resize((x, y) => {
-            if (window.innerWidth > 900)
-                $('.conteudo>.menu,.conteudo>.menu-aguarde').removeClass('open');
-        });
-        $('.collapsible>li>.collapsible-header').click(function () {
-            let elem = $(this).closest('.collapsible>li').find('.collapsible-body');
-            $('.collapsible-body').each(function () {
-                if (this != elem[0]) $(this).css({ display: 'none' })
-            })
-            elem.css({ display: elem.css('display') == 'none' ? 'block' : 'none' })
-        });
-
-        $('.collection>.collection-item>.title').click(function () {
-            let elem = $(this).closest('.collection-item').find('.json');
-
-            !$(elem).hasClass('open')
-                ? $(elem).addClass('open')
-                : $(elem).removeClass('open');
-        });
-    </script>
+    <script src="js/site.js"></script>
 </body>
 
 </html>
