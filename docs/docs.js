@@ -26,14 +26,14 @@ module.exports = {
                             {
                                 name: 'brasil',
                                 value: {
-                                    dataImpressao: { type: 'Date', descricao: 'Data impressão do boleto', default: '01/01/2000', testValue: '01/01/2000' },
-                                    dataGeracaoBoleto: Date,
+                                    dataImpressao: { info_json: true, type: Date, descricao: 'Data impressão do boleto', format: 'dd/MM/yyyy', default: '01/01/2000', testValue: '01/01/2000' },
+                                    dataGeracaoBoleto: { info_json: true, type: Date },
                                     numeroDocumento: String,
-                                    especie: String,
+                                    especie: { info_json: true, descricao: 'Especie fornecida pelo banco' },
                                     carteira: String,
-                                    numeroConvenio: String,
+                                    numeroConvenio: Number,
                                     pagador: {
-                                        nome: String,
+                                        nome: { info_json: true, format: 'xxxxx xxxxx xxxxx' },
                                         edereco: String,
                                         cep: String,
                                         cpfCnpj: String,

@@ -36,6 +36,27 @@
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/site.js"></script>
+    <script>
+        $(document).on('click', '[data-edit="off"]', function () {
+            $(this).attr('data-edit', 'on');
+            const tipo = $(this).attr('data-type') || 'string';
+            const value = $(this).text().replace(/"/g, '');
+
+            $(this).html(`<input data-tipo="${tipo}" class="txt-edit-json" type="text" value="${value}">`)
+            $('.txt-edit-json').focus().select();
+        });
+        $(document).on('focusout', '.txt-edit-json', function () {
+            let value = $(this).val().trim();
+            let tipo = $(this).attr('data-tipo').toLowerCase();
+            let cls = 'json-value-' + (!value ? 'null' : tipo);
+            if (!value) { value = 'null'; tipo == 'number'; }
+            $(this).closest('span')
+                .removeClass()
+                .addClass(cls)
+                .attr('data-edit', 'off')
+                .html(`${tipo == 'number' || !asp ? value : `"${value}"`}`);
+        });
+    </script>
 </body>
 
 </html>

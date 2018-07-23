@@ -1,6 +1,7 @@
 .json{
     background-color: #353535;
     padding: 15px;
+    margin-top: 10px;
 }
 /*.json-object,*/
 .json-object div:not(.json-footer){
@@ -28,6 +29,27 @@ span.json-value-string {
 span.json-value-number {
     color: #bce0b4;
     margin-left: 5px;
+}
+
+span.json-value-class{
+    color: #08ffdd;
+    margin-left: 5px;
+}
+
+span.json-value-null{
+    color: #088dff;
+    margin-left: 5px;
+}
+
+span.json-value-coment{
+    color: #00a700;
+    margin-left: 10px;
+}
+
+span>input.txt-edit-json {
+    width: 200px !important;
+    padding-left: 5px !important;
+    color: white !important;
 }
 
 .json-object.primary>span,

@@ -1,5 +1,5 @@
 const comuns = require('./comuns');
-const jsonFormat = require('../helpers/json/json');
+const JsonFormat = require('../helpers/json/json');
 
 module.exports = controllers;
 
@@ -116,7 +116,7 @@ function _getCollectionItens(obj) {
 
 function _formatJson(json) {
     //GERAR HTML JSON
-    let a = jsonFormat.printJSON(json);
-    return a;
+    let jsonFormat = new JsonFormat(json, true);
+    return jsonFormat.init();
     //return JSON.stringify(json, undefined, 4);
 }
