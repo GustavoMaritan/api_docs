@@ -12,6 +12,68 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <style>
+        .request {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #000000bf;
+            z-index: 100000;
+        }
+
+        .request-content {
+            width: 90%;
+            margin-top: 10px;
+            max-width: 900px;
+            height: 90%;
+            background-color: white;
+            border: 1px solid #ab47bc;
+            -webkit-box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            -moz-box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            overflow-y: auto;
+        }
+
+        .request-card {
+            border: 1px solid #fbfbfb;
+            border-left: 3px solid #b70000;
+            font-size: 18px;
+            padding: 7px !important;
+            margin-bottom: 2px;
+            color: #929292;
+            font-weight: 500;
+        }
+
+        .txt-edit-json {
+            width: 200px !important;
+            padding-left: 5px !important;
+            color: white !important;
+            
+        }
+
+        /* .json {
+            padding-left: 10px;
+            background-color: #848484;
+            color: white !important;
+        } */
+
+        @media only screen and (max-width: 850px) {
+            .request-content {
+                width: 100%;
+                margin-top: 0px;
+            }
+        }
+
+        @media only screen and (max-height: 775px) {
+            .request-content {
+                height: 90%;
+                margin-top: 0px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -37,7 +99,6 @@
                                 <th>Descrição</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <tr>
                                 <td>Authorization</td>
@@ -49,6 +110,7 @@
                 </div>
                 <div class="section">
                     <h5>Boletos</h5>
+                    <i>Metodos áhks jh sdjfn kdjn kdjngkdfjgkjdfhg</i>
                     <ul class="collapsible">
                         <li>
                             <div class="collapsible-header">
@@ -161,26 +223,131 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="collapsible-header">
-                                <strong style="text-transform: uppercase">get</strong>
-                                <span style="padding-left: 20px;color: #848484;">Imprimir</span>
-                            </div>
-                            <div class="collapsible-body">
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <div class="divider"></div>
             </div>
         </div>
+        <div class="request">
+            <div class="request-content">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row"></div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class=" request-card">
+                                    Boletos
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class=" request-card">
+                                    POST - Gerar
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class=" request-card">
+                                    http://localhost:11002/api/boletos/:banco?t
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class=" request-card">
+                                    <i>* Clique para editar os valores</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                            </div>
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h5>Headers</h5>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                            <input value="Authentication" type="text" readonly>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input placeholder="Default Value" id="password" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <h5>Parâmetros</h5>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                            <input value="banco *" type="text" readonly>
+                                        </div>
+                                        <div class="input-field col s6" class="invalid">
+                                            <select>
+                                                <option value="1" selected>Brasil</option>
+                                                <option value="2">Sicredi</option>
+                                                <option value="3">Sicoob</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="input-field col s6">
+                                            <input value="t" type="text" readonly>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <select>
+                                                <option value="1" selected>Print</option>
+                                                <option value="2">Download</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <h5>Body</h5>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="json" style="padding-left: 10px">
+                                            <div>{</div>
+                                            <div>    "a":
+                                                <span data-edit="off">"Gustavo"</span>
+                                            </div>
+                                            <div>}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <button type="submit">TESTE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/site.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
+
+        $(document).on('click', '[data-edit="off"]', function () {
+            $(this).attr('data-edit', 'on');
+            const tipo = $(this).attr('data-type') || 'string';
+            const value = $(this).text().replace(/"/g, '');
+
+            $(this).html(`<input data-tipo="${tipo}" class="txt-edit-json" type="text" value="${value}">`)
+        })
+
+        $(document).on('focusout', '.txt-edit-json', function () {
+            let value = $(this).val();
+            let tipo = $(this).attr('data-tipo').toLowerCase();
+
+            $(this).closest('span')
+                .attr('data-edit', 'off')
+                .html(`${tipo == 'number' ? value : `"${value}"`}`);
+        })
+    </script>
 </body>
 
 </html>

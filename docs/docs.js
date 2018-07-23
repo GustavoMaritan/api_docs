@@ -1,4 +1,4 @@
-let doc = {
+module.exports = {
     api: {
         name: 'Payment',
         url: 'http://localhost:11002',
@@ -8,26 +8,25 @@ let doc = {
     controllers: [
         {
             name: 'Boletos',
-            descricao: 'Métodos para geração de boletos',
+            descricao: 'Manutenção de boletos',
             routes: [
                 {
                     name: 'Gerar',
-                    descricao: 'Método responsavel por gerar boleto e retornar url para impressão ou download.',
                     method: 'POST',
                     url: 'boleto/:banco',
-                    //headers: { authorization: '' },
+                    descricao: 'Método responsavel por gerar boleto e retornar url para impressão ou download.',
                     params: {
                         banco: { required: true, opcoes: ['brasil', 'sicredi', 'sicoob'], type: String, testValue: 'brasil' },
                         t: { default: 'print', opcoes: ['print', 'download'], type: String }
                     },
-                    //body:{},
                     bodyCase: {
                         from: 'banco', // PARAMETRO CASE
+                        type: 'json',//default
                         itens: [
                             {
                                 name: 'brasil',
                                 value: {
-                                    dataImpressao: { type: Date, descricao: 'Data impressão do boleto' },
+                                    dataImpressao: { type: 'Date', descricao: 'Data impressão do boleto', default: '01/01/2000', testValue: '01/01/2000' },
                                     dataGeracaoBoleto: Date,
                                     numeroDocumento: String,
                                     especie: String,
@@ -137,9 +136,41 @@ let doc = {
                                         dataVencimento: { type: Date, descricao: 'Data vencimento da parcela' }
                                     }
                                 }
-                            },
-                            error: {
                             }
+                        }
+                    },
+                    // body:{
+                    //     type: 'json',
+                    //     content:{
+                    //         nomeParametro: value
+                    //     }
+                    // },
+                },
+                {
+                    name: 'Imprimir',
+                    method: 'GET',
+                    url: 'boleto/imprimir',
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {
+                                url: { type: String, descricao: 'Url gerada para baixar ou imprimir o boleto' },
+                                idBoleto: { type: String, descricao: 'Id gerado no payment para relacionamento com api cliente' },
+                                parcelas: {
+                                    type: Array,
+                                    descricao: 'Dados da parcela',
+                                    content: {
+                                        numero: { type: Number, descricao: 'Número da parcela' },
+                                        nossoNumero: { type: String, descricao: 'Nosso número ja gerado com o dígito' },
+                                        valor: { type: Number, descricao: 'Valor da parcela' },
+                                        dataVencimento: { type: Date, descricao: 'Data vencimento da parcela' }
+                                    }
+                                }
+                            }
+                        },
+                        error: {
                         }
                     }
                 }

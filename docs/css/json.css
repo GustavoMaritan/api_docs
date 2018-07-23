@@ -1,0 +1,36 @@
+.json{
+    background-color: #353535;
+    padding: 15px;
+}
+/*.json-object,*/
+.json-object div:not(.json-footer){
+    border-left: 1px solid gray;
+}
+
+span.json-sinal {
+    color: #cecece;
+}
+
+.json-margin {
+    margin-left: 25px;
+}
+
+span.json-key {
+    color: #63cdff;
+    margin-right: 2px;
+}
+
+span.json-value-string {
+    color: #c3997b;
+    margin-left: 5px;
+}
+
+span.json-value-number {
+    color: #bce0b4;
+    margin-left: 5px;
+}
+
+.json-object.primary>span,
+.json-object.primary>div {
+    margin: 0;
+}

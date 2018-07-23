@@ -12,6 +12,7 @@
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/json.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -25,7 +26,9 @@
         <div class="menu"></div>
         <div class="menu-aguarde"></div>
         <div class="corpo">
-            <div class="row"></div>
+            <div class="row">
+                @html.raw(model.t.conteudo)
+            </div>
         </div>
     </div>
 

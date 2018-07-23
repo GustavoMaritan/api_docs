@@ -1,20 +1,22 @@
 <div class="section">
-    <h6>http://localhost:11002/api</h6>
+    <h6>@model.t.url</h6>
     <h5>Headers</h5>
     <table class="highlight">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Tipo</th>
+                <th class="center">Tipo</th>
                 <th>Descrição</th>
             </tr>
         </thead>
         <tbody>
+            @model.t.headers.forEach(x => {
             <tr>
-                <td>Authorization</td>
-                <td>String</td>
-                <td>Chave gerada pelo admin</td>
+                <td>@x.nome</td>
+                <td class="center">@x.tipo</td>
+                <td>@x.descricao</td>
             </tr>
+            })
         </tbody>
     </table>
 </div>

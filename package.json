@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/GustavoMaritan/api_docs/issues"
   },
-  "homepage": "https://github.com/GustavoMaritan/api_docs#readme"
+  "homepage": "https://github.com/GustavoMaritan/api_docs#readme",
+  "dependencies": {
+    "vash": "^0.12.4"
+  }
 }
