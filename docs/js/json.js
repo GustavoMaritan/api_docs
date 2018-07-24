@@ -6,7 +6,18 @@ $(document).on('click', '[data-edit="off"]', function () {
     $(this).html(`<input data-tipo="${tipo}" class="txt-edit-json" type="text" value="${value}">`)
     $('.txt-edit-json').focus().select();
 });
-
+$(document).on('focus', '.txt-edit-json', function (e) {
+    $(this).attr('data-old-val', $(this).val().trim());
+});
+$(document).on('keypress', '.txt-edit-json', function (e) {
+    if (e.keyCode == 13)
+        $(this).trigger('focusout');
+});
+$(document).on('keyup', '.txt-edit-json', function (e) {
+    if (e.keyCode != 27) return;
+    $(this).val($(this).attr('data-old-val'));
+    $(this).trigger('focusout');
+});
 $(document).on('focusout', '.txt-edit-json', function () {
     let value = $(this).val().trim();
     let tipo = $(this).attr('data-tipo').toLowerCase();

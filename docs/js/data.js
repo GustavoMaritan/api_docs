@@ -1,7 +1,7 @@
 $json_documents = {
     api: {
         name: 'Payment',
-        url: 'http://localhost:11002',
+        url: 'http://localhost:3000',
         prefix: 'api',
         headers: { authorization: { type: String, descricao: 'Chave gerada pelo admin', testValue: '123' } }
     },

@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/GustavoMaritan/api_docs#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "vash": "^0.12.4"
   }
 }

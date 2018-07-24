@@ -16,7 +16,7 @@
 
     <style>
         .request {
-            display: flex;
+            display: none;
             flex-wrap: nowrap;
             justify-content: center;
             position: fixed;
@@ -108,6 +108,7 @@
                 $json_documents.controllers[0].name,
                 $json_documents.controllers[0].routes[0]
             ));
+            $('.request').css({ display: 'flex' });
             $('select').formSelect();
         }
 
@@ -134,13 +135,13 @@
             if (Object.keys(headers).length) {
                 let _div = divCol12.clone();
                 _div.append(divCol12.clone().html('<h5>Headers</h5>'))
-                    .append(comp_params(headers))
+                    .append(comp_params(headers, 'headers'))
                 rowsBody.append(_div);
             }
             if (obj.params) {
                 let _div = divCol12.clone();
                 _div.append(divCol12.clone().html('<h5>Parâmetros</h5>'))
-                    .append(comp_params(obj.params));
+                    .append(comp_params(obj.params, 'params'));
                 rowsBody.append(_div);
             }
 
@@ -153,18 +154,79 @@
                     .append(divCol12.clone().append($(`<div>`, {
                         class: "col s12 json",
                         html: jsonFormat.init()
-                    })));
+                    }).attr('data-body', 'body')));
                 rowsBody.append(_div);
             }
             form
                 .append(divRow.clone().append(divCol12.clone().append(rowsBody)));
+
+            let btnCancel = $('<a>', { class: 'btn', style: 'background-color: #cc0606; margin-left: 2px', text: 'Fechar' })
+            let btnSubmit = $('<a>', { class: 'btn', style: 'background-color: #a236f4; margin-left: 2px', text: 'Testar Api' })
+
+
+            btnCancel.click(() => {
+                $('.request-content').empty();
+                $('.request').slideUp();
+            });
+
+            btnSubmit.click(function () {
+                let request = carregarForm(this);
+                if (!form.find('[data-result]').length)
+                    return send();
+
+                form.find('[data-result]').slideUp(() => { send() });
+                function send() {
+                    $.ajax({
+                        url: prepareUrl(api, obj.url, request.params),
+                        method: obj.method.toUpperCase(),
+                        headers: request.headers,
+                        data: request.body
+                    }).done((res) => {
+                        form.find('[data-result]').remove();
+                        let newResult = divRow.clone().css({ display: 'none' }).attr('data-result', '').append(
+                            divCol12.clone().append('<div class="json">OIIIEEEEE</div>')
+                        );
+                        form.append(newResult);
+                        newResult.slideDown();
+                        form.closest('.request-content').animate({
+                            scrollTop: form.find('[data-result]').position().top
+                        }, 1000);
+                    }).fail((err) => {
+                        console.log('err', err);
+                    })
+                }
+            });
+
+            form.append(divRow.clone().css({ 'text-align': 'right' }).append(
+                divCol12.clone().append(btnCancel).append(btnSubmit)
+            ));
             return divRow.clone().append(form);
         }
 
-        function comp_params(obj) {
+        function carregarForm(btn) {
+            let form = $(btn).closest('form');
+            let body = form.find('[data-bodywww]').text().trim();
+
+            let request = {
+                body: body ? JSON.parse(body) : undefined,
+                headers: {},
+                params: {}
+            }
+            form.find('[data-headers]').each(function () {
+                request.headers[$(this).attr('data-headers')] = $(this).val();
+            });
+            form.find('[data-params]').each(function () {
+                request.params[$(this).attr('data-params')] = $(this).val();
+            });
+            return request;
+        }
+
+        function comp_params(obj, name) {
             let body = [];
             for (let i in obj) {
                 let input = {
+                    attr: name,
+                    name: i,
                     required: '',
                     value: '',
                     type: 'string'
@@ -194,13 +256,44 @@
 
         function comp_input_select(opcoes, input) {
             if (!opcoes || !opcoes.length)
-                return `<input id="text" placeholder="${input.type}" type="text" value="${input.value}" ${input.required}>`;
+                return `<input 
+                    id="text" 
+                    data-${input.attr}="${input.name}"
+                    placeholder="${input.type}" 
+                    type="text" 
+                    value="${input.value}" ${input.required}>
+                `;
             let opcs = opcoes
                 .map(x => `<option value="${x}" ${input.value == x ? 'selected' : ''}>${x}</option>`);
-            return `<select ${input.required}>${opcs.join('')}</select>`;
+            return `<select data-${input.attr}="${input.name}" ${input.required}>
+                        ${opcs.join('')}
+                    </select>`;
         }
 
+        function formatUrl(url, prefix, route) {
+            url = url.substr(url.length - 1) == '/'
+                ? url.substr(0, url.length - 1)
+                : url;
+            route = route.split('?')[0];
+            route = route.split('/').join('/');
+
+            url = prefix ? `${url}/${prefix}` : url;
+            url = `${url}/${route}`;
+            return url;
+        }
+
+        function prepareUrl(api, route, params) {
+            let url = formatUrl(api.url, api.prefix, route);
+            params = params || {};
+            let queryString = [];
+            for (let i in params) {
+                if (url.includes(':' + i))
+                    url = url.replace(':' + i, 'brasil');//params[i]
+                else
+                    queryString.push(i + '=' + 'download');//params[i]
+            }
+            return url + (queryString.length ? '?' + queryString.join('&') : '');
+        }
     </script>
 </body>
-
 </html>
