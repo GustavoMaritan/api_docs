@@ -1,4 +1,4 @@
-<div class="col s12 card-label">Retorno @model.t.label</div>
+<div class="col s12 card-label">@html.raw(model.t.label)</div>
 <div class="col s12 json">
-    @model.t.value
+    @html.raw(model.t.value)
 </div>

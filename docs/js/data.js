@@ -1,4 +1,4 @@
-module.exports = {
+$json_documents = {
     api: {
         name: 'Payment',
         url: 'http://localhost:11002',
@@ -16,7 +16,7 @@ module.exports = {
                     url: 'boleto/:banco?t',
                     descricao: 'Método responsavel por gerar boleto e retornar url para impressão ou download.',
                     params: {
-                        banco: { required: true, opcoes: ['brasil', 'sicredi', 'sicoob'], type: String, testValue: 'brasil' },
+                        banco: { required: true, opcoes: ['brasil', 'sicredi', 'sicoob'], type: String, testValue: 'sicredi' },
                         t: { default: 'print', opcoes: ['print', 'download'], type: String }
                     },
                     bodyCase: {
@@ -28,7 +28,7 @@ module.exports = {
                                 value: {
                                     dataImpressao: { $options: true, type: Date, descricao: 'Data impressão do boleto', format: 'dd/MM/yyyy', default: '01/01/2000', testValue: '01/01/2000' },
                                     dataGeracaoBoleto: { $options: true, type: Date },
-                                    numeroDocumento: String,
+                                    numeroDocumento: Boolean,
                                     especie: { $options: true, descricao: 'Especie fornecida pelo banco' },
                                     carteira: String,
                                     numeroConvenio: Number,
@@ -133,27 +133,6 @@ module.exports = {
                                     dataVencimento: { $options: true, type: Date, descricao: 'Data vencimento da parcela' }
                                 }]
                             }
-                        }
-                    },
-                    // body:{
-                    //     type: 'json',
-                    //     content:{
-                    //         nomeParametro: value
-                    //     }
-                    // },
-                },
-                {
-                    name: 'Imprimir',
-                    method: 'GET',
-                    url: 'boleto/imprimir',
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'text',
-                            status: 200,
-                            content: 'Arquivo .pdf'
-                        },
-                        error: {
                         }
                     }
                 }

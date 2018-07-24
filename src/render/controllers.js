@@ -81,11 +81,24 @@ function _getBodyCase(collection, obj) {
 
 function _getReturn(collection, obj) {
     if (!obj) return;
-    if (obj.success)
-        collection.push(comuns.componentCompile('comuns/text-json', {
-            label: `Retorno ${obj.success.status || 'OK'}`,
-            value: _formatJson(obj.success.content)
-        }));
+    if (obj.success) {
+        let opt = {
+            label: obj.success.status
+                ? `Retorno <span style="color:green">${obj.success.status}</span>`
+                : 'Retorno OK'
+        };
+        switch (obj.success.type) {
+            case 'json':
+                opt.name = 'comuns/text-json';
+                opt.value = _formatJson(obj.success.content);
+                break;
+            default:
+                opt.name = 'comuns/text';
+                opt.value = obj.success.content;
+                break;
+        }
+        collection.push(comuns.componentCompile(opt.name, opt));
+    }
 }
 
 function _getGridTds(obj) {
@@ -115,8 +128,6 @@ function _getCollectionItens(obj) {
 }
 
 function _formatJson(json) {
-    //GERAR HTML JSON
     let jsonFormat = new JsonFormat(json, true);
     return jsonFormat.init();
-    //return JSON.stringify(json, undefined, 4);
 }

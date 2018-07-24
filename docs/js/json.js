@@ -1,8 +1,28 @@
+$(document).on('click', '[data-edit="off"]', function () {
+    $(this).attr('data-edit', 'on');
+    const tipo = $(this).attr('data-type') || 'string';
+    let value = $(this).text().replace(/"/g, '');
+    value = value == 'null' ? '' : value;
+    $(this).html(`<input data-tipo="${tipo}" class="txt-edit-json" type="text" value="${value}">`)
+    $('.txt-edit-json').focus().select();
+});
+
+$(document).on('focusout', '.txt-edit-json', function () {
+    let value = $(this).val().trim();
+    let tipo = $(this).attr('data-tipo').toLowerCase();
+    let cls = 'json-value-' + (!value ? 'null' : tipo);
+    if (!value) { value = 'null'; tipo = 'number'; }
+    $(this).closest('span')
+        .removeClass()
+        .addClass(cls)
+        .attr('data-edit', 'off')
+        .html(`${tipo == 'number' || tipo == 'boolean' ? value : `"${value}"`}`);
+});
+
 class JsonFormat {
-    constructor(json, print, edit) {
+    constructor(json, print) {
         this.json = json;
         this.print = print;
-        this.edit = edit;
     }
 
     init() {
@@ -61,7 +81,7 @@ class JsonFormat {
                     if (this.print)
                         attr.push(`<span data-type="${object[i].name.toLowerCase()}" class="json-value-class">${object[i].name}</span>`);
                     else {
-                        attr.push(`<span data-type="${object[i].name.toLowerCase()}" class="json-value-null" ${this.edit ? 'data-edit="off"' : ''}>null</span>`);
+                        attr.push(`<span data-type="${object[i].name.toLowerCase()}" class="json-value-null" data-edit="off">null</span>`);
                     }
                     break;
                 case 'string':
@@ -95,6 +115,8 @@ class JsonFormat {
                         if (this.print) {
                             attr.push(this._infoJSonPrint(object[i]));
                             virgula = false;
+                        } else {
+                            attr.push(this._infoJSonEdit(object[i]));
                         }
                     }
                     break;
@@ -130,6 +152,41 @@ class JsonFormat {
         return html.join('');
     }
 
+    _infoJSonEdit(obj) {
+        let value = obj.testValue || obj.default;
+        let tp = obj.type
+            ? typeof obj.type == 'function'
+                ? obj.type.name
+                : obj.type
+            : value
+                ? typeof value
+                : 'string';
+        let val = {
+            type: tp.toLowerCase(),
+            value: value || 'null',
+            class: !value ? 'null' : tp.toLowerCase(),
+            descricao: obj.format && !obj.descricao
+                ? `Formato: ${obj.format}`
+                : obj.descricao
+                    ? `${obj.descricao}${obj.format ? `(${obj.format})` : ''}`
+                    : ''
+        };
+        return `
+            <span data-type="${val.type}" 
+                title="${val.descricao}"
+                class="json-value-${val.class}" 
+                data-edit="off">
+                ${
+            val.type == 'boolean' ||
+                val.type == 'number' ||
+                val.value == 'null'
+                ? val.value
+                : `"${val.value}"`
+            }
+            </span>
+        `;
+    }
+
     _toCamelCase(value) {
         return (
             value.toLowerCase().substr(0, 1).toUpperCase() +
@@ -138,4 +195,4 @@ class JsonFormat {
     }
 }
 
-module.exports = JsonFormat;
+$JsonFormat = JsonFormat;

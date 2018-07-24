@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Docs Payment</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/json.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <style>
+        .request {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #000000bf;
+            z-index: 100000;
+        }
+
+        .request-content {
+            width: 90%;
+            margin-top: 10px;
+            max-width: 900px;
+            height: 90%;
+            background-color: white;
+            border: 1px solid #ab47bc;
+            -webkit-box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            -moz-box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            box-shadow: 0px 0px 15px -1px rgba(171, 71, 188, 1);
+            overflow-y: auto;
+        }
+
+        .request-card {
+            border: 1px solid #fbfbfb;
+            border-left: 3px solid #b70000;
+            font-size: 18px;
+            padding: 7px !important;
+            margin-bottom: 2px;
+            color: #929292;
+            font-weight: 500;
+        }
+
+        .txt-edit-json {
+            width: 200px !important;
+            padding-left: 5px !important;
+            color: white !important;
+
+        }
+
+        @media only screen and (max-width: 850px) {
+            .request-content {
+                width: 100%;
+                margin-top: 0px;
+            }
+        }
+
+        @media only screen and (max-height: 775px) {
+            .request-content {
+                height: 90%;
+                margin-top: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="top-menu">
+        <div class="icon">
+            <i class="material-icons">dehaze</i>
+        </div>
+        <div class="title">Docs Payment</div>
+    </nav>
+    <div class="conteudo">
+        <div class="menu"></div>
+        <div class="menu-aguarde"></div>
+        <div class="corpo">
+        </div>
+        <div class="request">
+            <div class="request-content">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/json.js"></script>
+    <!--  TEMP PRA SIMULAR DADOS-->
+    <script src="js/data.js"></script>
+    <!--  FIM -->
+    <script title="test-request">
+
+        showRequest();
+        function showRequest() {
+            $('.request-content').html(gerarRequest(
+                $json_documents.api,
+                $json_documents.controllers[0].name,
+                $json_documents.controllers[0].routes[0]
+            ));
+            $('select').formSelect();
+        }
+
+        function gerarRequest(api, controller, obj) {
+            //$json_documents
+            let headers = { ...api.headers, ...obj.headers };
+            let divRow = $('<div>', { class: 'row' });
+            let divCol12 = $('<div>', { class: 'col s12' });
+            let divReqCard = $('<div>', { class: 'request-card' });
+            let divInputS6 = $('<div>', { class: 'input-field col s6' })
+            let form = $('<form>', { class: 'col s12' });
+            form
+                .append(divRow.clone())
+                //ADICIONA CARDS INICIAIS (**bind valores url ao alterar os parametros)
+                .append(
+                    divRow.clone()
+                        .append(divCol12.clone().append(divReqCard.clone().html(api.name)))
+                        .append(divCol12.clone().append(divReqCard.clone().html(`${obj.method} - ${obj.name}`)))
+                        .append(divCol12.clone().append(divReqCard.clone().html(`${api.url}/${api.prefix}/${obj.url}`)))
+                );
+
+            //HEADERS, PARAMS, BODY
+            let rowsBody = divRow.clone();
+            if (Object.keys(headers).length) {
+                let _div = divCol12.clone();
+                _div.append(divCol12.clone().html('<h5>Headers</h5>'))
+                    .append(comp_params(headers))
+                rowsBody.append(_div);
+            }
+            if (obj.params) {
+                let _div = divCol12.clone();
+                _div.append(divCol12.clone().html('<h5>Parâmetros</h5>'))
+                    .append(comp_params(obj.params));
+                rowsBody.append(_div);
+            }
+
+            obj.body = obj.bodyCase.itens[0].value;
+            if (obj.body) {
+                let _div = divCol12.clone();
+                let jsonFormat = new $JsonFormat(obj.body, false, true);
+                _div
+                    .append(divCol12.clone().html('<h5>Body</h5>'))
+                    .append(divCol12.clone().append($(`<div>`, {
+                        class: "col s12 json",
+                        html: jsonFormat.init()
+                    })));
+                rowsBody.append(_div);
+            }
+            form
+                .append(divRow.clone().append(divCol12.clone().append(rowsBody)));
+            return divRow.clone().append(form);
+        }
+
+        function comp_params(obj) {
+            let body = [];
+            for (let i in obj) {
+                let input = {
+                    required: '',
+                    value: '',
+                    type: 'string'
+                }
+                if (typeof obj[i] == 'object') {
+                    input.value = obj[i].testValue || obj[i].default || '';
+                    input.required = obj[i].required ? 'required' : '';
+                    input.type = obj[i].type
+                        ? typeof obj[i].type == 'function'
+                            ? obj[i].type.name
+                            : obj[i].type
+                        : '';
+                }
+                body.push(`
+                    <div class="col s12">
+                        <div class="input-field col s6">
+                            <input value="${(input.required ? '* ' : '') + i}" type="text" readonly>
+                        </div>
+                        <div class="input-field col s6">
+                            ${comp_input_select(obj[i].opcoes, input)}
+                        </div>
+                    </div>          
+                `)
+            }
+            return body.join('');
+        }
+
+        function comp_input_select(opcoes, input) {
+            if (!opcoes || !opcoes.length)
+                return `<input id="text" placeholder="${input.type}" type="text" value="${input.value}" ${input.required}>`;
+            let opcs = opcoes
+                .map(x => `<option value="${x}" ${input.value == x ? 'selected' : ''}>${x}</option>`);
+            return `<select ${input.required}>${opcs.join('')}</select>`;
+        }
+
+    </script>
+</body>
+
+</html>

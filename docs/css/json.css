@@ -1,11 +1,16 @@
 .json{
     background-color: #353535;
-    padding: 15px;
+    padding: 15px !important;
     margin-top: 10px;
+    letter-spacing: .5px;
 }
 /*.json-object,*/
 .json-object div:not(.json-footer){
-    border-left: 1px solid gray;
+    border-left: 1px solid #545151;
+}
+
+.json-margin-left{
+    margin-left:5px;
 }
 
 span.json-sinal {
@@ -26,6 +31,11 @@ span.json-value-string {
     margin-left: 5px;
 }
 
+span.json-value-date {
+    color: #c3997b;
+    margin-left: 5px;
+}
+
 span.json-value-number {
     color: #bce0b4;
     margin-left: 5px;
@@ -37,6 +47,11 @@ span.json-value-class{
 }
 
 span.json-value-null{
+    color: #088dff;
+    margin-left: 5px;
+}
+
+span.json-value-boolean{
     color: #088dff;
     margin-left: 5px;
 }
