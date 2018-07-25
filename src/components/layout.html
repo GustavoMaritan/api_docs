@@ -13,6 +13,7 @@
     <link href="css/estrutura-site.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/json.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/request.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -30,32 +31,27 @@
                 @html.raw(model.t.conteudo)
             </div>
         </div>
+        <div class="request">
+            <div class="request-content">
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/site.js"></script>
-    <script>
-        $(document).on('click', '[data-edit="off"]', function () {
-            $(this).attr('data-edit', 'on');
-            const tipo = $(this).attr('data-type') || 'string';
-            const value = $(this).text().replace(/"/g, '');
+    <script src="js/json.js"></script>
+    <script src="js/request.js"></script>
 
-            $(this).html(`<input data-tipo="${tipo}" class="txt-edit-json" type="text" value="${value}">`)
-            $('.txt-edit-json').focus().select();
-        });
-        $(document).on('focusout', '.txt-edit-json', function () {
-            let value = $(this).val().trim();
-            let tipo = $(this).attr('data-tipo').toLowerCase();
-            let cls = 'json-value-' + (!value ? 'null' : tipo);
-            if (!value) { value = 'null'; tipo == 'number'; }
-            $(this).closest('span')
-                .removeClass()
-                .addClass(cls)
-                .attr('data-edit', 'off')
-                .html(`${tipo == 'number' || !asp ? value : `"${value}"`}`);
-        });
+    <script>
+        let showRequest = $showRequest();
+
+        function apiTest(value) {
+            let obj = JSON.parse(value);
+            showRequest.create(obj.api, obj.controller, obj.route)
+        }
+
     </script>
 </body>
 

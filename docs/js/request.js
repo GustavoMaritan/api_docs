@@ -18,6 +18,7 @@ $showRequest = () => {
     }
 
     function gerarRequest(api, controller, obj) {
+        obj = obj || {};
         let headers = { ...api.headers, ...obj.headers };
 
         let form = $('<form>', { class: 'col s12' });
@@ -46,17 +47,19 @@ $showRequest = () => {
             rowsBody.append(_div);
         }
 
-        obj.body = obj.bodyCase.itens[0].value;
-        if (obj.body) {
-            let _div = divCol12.clone();
-            let jsonFormat = new $JsonFormat(obj.body, false, true);
-            _div
-                .append(divCol12.clone().html('<h5>Body</h5>'))
-                .append(divCol12.clone().append($(`<div>`, {
-                    class: "col s12 json",
-                    html: jsonFormat.init()
-                }).attr('data-body', 'body')));
-            rowsBody.append(_div);
+        if (obj.bodyCase) {
+            obj.body = obj.bodyCase.itens[0].value;
+            if (obj.body) {
+                let _div = divCol12.clone();
+                let jsonFormat = new $JsonFormat(obj.body, false, true);
+                _div
+                    .append(divCol12.clone().html('<h5>Body</h5>'))
+                    .append(divCol12.clone().append($(`<div>`, {
+                        class: "col s12 json",
+                        html: jsonFormat.init()
+                    }).attr('data-body', 'body')));
+                rowsBody.append(_div);
+            }
         }
         form
             .append(divRow.clone().append(divCol12.clone().append(rowsBody)));

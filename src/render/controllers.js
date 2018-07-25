@@ -14,10 +14,17 @@ function controllers() {
             lis: []
         }
         x.routes.forEach(y => {
+            let _newObj = {
+                api: comuns.obj.api,
+                controller: x.name,
+                route: { ...y }
+            };
+            _removeClassType(_newObj);
             let li = {
                 method: y.method,
                 nome: y.name,
-                components: []
+                components: [],
+                json: JSON.stringify(_newObj)//''// 
             }
 
             li.components.push(comuns.componentCompile('comuns/text', {
@@ -38,6 +45,22 @@ function controllers() {
     });
 
     return ctrls;
+}
+
+function _removeClassType(obj) {
+    if (Array.isArray(obj))
+        obj.map(x => _removeClassType(x));
+
+    if (typeof obj != 'object') return;
+
+    for (let i in obj) {
+        if (typeof obj[i] == 'function' && i == 'type')
+            obj[i] = obj[i].name;
+        if (typeof obj[i] == 'function' && i != 'type')
+            obj[i] = { $options: true, type: obj[i].name };
+        if (typeof obj[i] == 'object')
+            _removeClassType(obj[i]);
+    }
 }
 
 function _getDescricao(collection, obj) {

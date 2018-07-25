@@ -186,15 +186,13 @@ class JsonFormat {
             <span data-type="${val.type}" 
                 title="${val.descricao}"
                 class="json-value-${val.class}" 
-                data-edit="off">
-                ${
-            val.type == 'boolean' ||
-                val.type == 'number' ||
-                val.value == 'null'
-                ? val.value
-                : `"${val.value}"`
-            }
-            </span>
+                data-edit="off">${
+                    val.type == 'boolean' ||
+                    val.type == 'number' ||
+                    val.value == 'null'
+                        ? val.value
+                        : `"${val.value}"`
+            }</span>
         `;
     }
 
