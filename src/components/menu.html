@@ -5,7 +5,7 @@
         <ul class="treeview-opcoes">
             @x.routes.forEach(y => {
             <li class="treeview-opcao">
-                <div data-item="@(`${x.name}-${y.name}-${y.method}`.toLowerCase())">
+                <div data-item="@(`${x.name}-${y.name}-${y.method}`.replace(/ /g, '').toLowerCase())">
                     <div class="name">@y.name</div>
                     <div class="method @y.method.toLowerCase()">@y.method</div>
                 </div>

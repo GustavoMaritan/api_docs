@@ -41,6 +41,36 @@
                 </div>
             </li>
         </ul>
+    </li><li class="treeview-item">
+        <div>Usuário</div>
+        <ul class="treeview-opcoes">
+            <li class="treeview-opcao">
+                <div data-item="usuário-cadastrar-post">
+                    <div class="name">Cadastrar</div>
+                    <div class="method post">post</div>
+                </div>
+            </li><li class="treeview-opcao">
+                <div data-item="usuário-alterar-put">
+                    <div class="name">Alterar</div>
+                    <div class="method put">put</div>
+                </div>
+            </li><li class="treeview-opcao">
+                <div data-item="usuário-buscar-get">
+                    <div class="name">Buscar</div>
+                    <div class="method get">get</div>
+                </div>
+            </li><li class="treeview-opcao">
+                <div data-item="usuário-excluir-delete">
+                    <div class="name">Excluir</div>
+                    <div class="method delete">delete</div>
+                </div>
+            </li><li class="treeview-opcao">
+                <div data-item="usuário-selecionar-get">
+                    <div class="name">Selecionar</div>
+                    <div class="method get">get</div>
+                </div>
+            </li>
+        </ul>
     </li>
 </ul>
         </div>
@@ -142,6 +172,191 @@
 <div class="col s12 card-text">Arquivo .pdf</div></div>
     <div class="row" style="text-align: right;">
         <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Boletos&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Imprimir&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;url&quot;:&quot;/api/ping&quot;,&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;text&quot;,&quot;status&quot;:200,&quot;content&quot;:&quot;Arquivo .pdf&quot;},&quot;error&quot;:{}}}}')" style="background-color: #a236f4"> Testar Api </a>
+    </div>
+</div></li>
+    </ul>
+</div><div class="section">
+    <h5>Usuário</h5>
+    <i>Manutenção usuários do sistema</i>
+    <ul class="collapsible">
+        <li data-opcao="usuário-cadastrar-post"><div class="collapsible-header">
+    <span style="text-transform: uppercase;font-weight: bold;">post</span>
+    <span style="padding-left: 20px;color: #848484;">Cadastrar</span>
+</div>
+<div class="collapsible-body">
+    <div class="row"><div class="col s12 card-label">Url</div>
+<div class="col s12 card-text">http://localhost:3000/api/usario</div></div><div class="row"><div class="col s12 card-label">Opções Body [Parâmetro=banco]</div>
+<div class="col s12 card-text">
+    <div class="collection">
+        <div class="collection-item">
+            <div class="title">brasil</div>
+            <div class="json">
+                <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-attr json-margin"><span class="json-key json-margin">"nome"</span><span class="json-sinal">:</span><span class="json-value-class">String</span><span class="json-sinal">,</span></div><div class="json-attr json-margin"><span class="json-key json-margin">"idade"</span><span class="json-sinal">:</span><span class="json-value-class">Number</span><span class="json-sinal">,</span></div><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+            </div>
+        </div>
+    </div>
+</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 json">
+    <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-attr json-margin"><span class="json-key json-margin">"id"</span><span class="json-sinal">:</span><span class="json-value-class">Number</span><span class="json-sinal">,</span></div><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+</div></div>
+    <div class="row" style="text-align: right;">
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Usuário&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Cadastrar&quot;,&quot;method&quot;:&quot;post&quot;,&quot;url&quot;:&quot;usario&quot;,&quot;bodyCase&quot;:{&quot;from&quot;:&quot;banco&quot;,&quot;type&quot;:&quot;json&quot;,&quot;itens&quot;:[{&quot;name&quot;:&quot;brasil&quot;,&quot;value&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;idade&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}}}]},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{&quot;id&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}}}}}}')" style="background-color: #a236f4"> Testar Api </a>
+    </div>
+</div></li><li data-opcao="usuário-alterar-put"><div class="collapsible-header">
+    <span style="text-transform: uppercase;font-weight: bold;">put</span>
+    <span style="padding-left: 20px;color: #848484;">Alterar</span>
+</div>
+<div class="collapsible-body">
+    <div class="row"><div class="col s12 card-label">Url</div>
+<div class="col s12 card-text">http://localhost:3000/api/usuario/:id</div></div><div class="row"><div class="col s12 card-label">Parâmetros</div>
+<div class="col s12 card-text">
+    <table class="highlight" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th class="center">Tipo</th>
+                <th>Opções</th>
+                <th class="center">Default</th>
+                <th class="center">Opcional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td class="center">Number</td>
+                <td></td>
+                <td class="center"></td>
+                <td class="center">Sim</td>
+            </tr>
+        </tbody>
+    </table>
+</div></div><div class="row"><div class="col s12 card-label">Opções Body [Parâmetro=banco]</div>
+<div class="col s12 card-text">
+    <div class="collection">
+        <div class="collection-item">
+            <div class="title">brasil</div>
+            <div class="json">
+                <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-attr json-margin"><span class="json-key json-margin">"nome"</span><span class="json-sinal">:</span><span class="json-value-class">String</span><span class="json-sinal">,</span></div><div class="json-attr json-margin"><span class="json-key json-margin">"idade"</span><span class="json-sinal">:</span><span class="json-value-class">Number</span><span class="json-sinal">,</span></div><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+            </div>
+        </div>
+    </div>
+</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 json">
+    <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+</div></div>
+    <div class="row" style="text-align: right;">
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Usuário&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Alterar&quot;,&quot;method&quot;:&quot;put&quot;,&quot;url&quot;:&quot;usuario/:id&quot;,&quot;params&quot;:{&quot;id&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}},&quot;bodyCase&quot;:{&quot;from&quot;:&quot;banco&quot;,&quot;type&quot;:&quot;json&quot;,&quot;itens&quot;:[{&quot;name&quot;:&quot;brasil&quot;,&quot;value&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;idade&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}}}]},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{}}}}}')" style="background-color: #a236f4"> Testar Api </a>
+    </div>
+</div></li><li data-opcao="usuário-buscar-get"><div class="collapsible-header">
+    <span style="text-transform: uppercase;font-weight: bold;">get</span>
+    <span style="padding-left: 20px;color: #848484;">Buscar</span>
+</div>
+<div class="collapsible-body">
+    <div class="row"><div class="col s12 card-label">Url</div>
+<div class="col s12 card-text">http://localhost:3000/api/usuario/:id</div></div><div class="row"><div class="col s12 card-label">Parâmetros</div>
+<div class="col s12 card-text">
+    <table class="highlight" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th class="center">Tipo</th>
+                <th>Opções</th>
+                <th class="center">Default</th>
+                <th class="center">Opcional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td class="center">Number</td>
+                <td></td>
+                <td class="center"></td>
+                <td class="center">Sim</td>
+            </tr>
+        </tbody>
+    </table>
+</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 json">
+    <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+</div></div>
+    <div class="row" style="text-align: right;">
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Usuário&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Buscar&quot;,&quot;method&quot;:&quot;get&quot;,&quot;url&quot;:&quot;usuario/:id&quot;,&quot;params&quot;:{&quot;id&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{}}}}}')" style="background-color: #a236f4"> Testar Api </a>
+    </div>
+</div></li><li data-opcao="usuário-excluir-delete"><div class="collapsible-header">
+    <span style="text-transform: uppercase;font-weight: bold;">delete</span>
+    <span style="padding-left: 20px;color: #848484;">Excluir</span>
+</div>
+<div class="collapsible-body">
+    <div class="row"><div class="col s12 card-label">Url</div>
+<div class="col s12 card-text">http://localhost:3000/api/usuario/:id</div></div><div class="row"><div class="col s12 card-label">Parâmetros</div>
+<div class="col s12 card-text">
+    <table class="highlight" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th class="center">Tipo</th>
+                <th>Opções</th>
+                <th class="center">Default</th>
+                <th class="center">Opcional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id</td>
+                <td class="center">Number</td>
+                <td></td>
+                <td class="center"></td>
+                <td class="center">Sim</td>
+            </tr>
+        </tbody>
+    </table>
+</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 json">
+    <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+</div></div>
+    <div class="row" style="text-align: right;">
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Usuário&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Excluir&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;url&quot;:&quot;usuario/:id&quot;,&quot;params&quot;:{&quot;id&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;}},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{}}}}}')" style="background-color: #a236f4"> Testar Api </a>
+    </div>
+</div></li><li data-opcao="usuário-selecionar-get"><div class="collapsible-header">
+    <span style="text-transform: uppercase;font-weight: bold;">get</span>
+    <span style="padding-left: 20px;color: #848484;">Selecionar</span>
+</div>
+<div class="collapsible-body">
+    <div class="row"><div class="col s12 card-label">Url</div>
+<div class="col s12 card-text">http://localhost:3000/api/usuarios?pagina&amp;quantidade</div></div><div class="row"><div class="col s12 card-label">Parâmetros</div>
+<div class="col s12 card-text">
+    <table class="highlight" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th class="center">Tipo</th>
+                <th>Opções</th>
+                <th class="center">Default</th>
+                <th class="center">Opcional</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>pagina</td>
+                <td class="center">Number</td>
+                <td></td>
+                <td class="center">1</td>
+                <td class="center">Sim</td>
+            </tr><tr>
+                <td>quantidade</td>
+                <td class="center">Number</td>
+                <td></td>
+                <td class="center">10</td>
+                <td class="center">Sim</td>
+            </tr>
+        </tbody>
+    </table>
+</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 json">
+    <div class="json-object primary"><span class="json-sinal json-margin">{</span><div class="json-footer json-margin"><span class="json-sinal">}</span></div></div>
+</div></div>
+    <div class="row" style="text-align: right;">
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Usuário&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Selecionar&quot;,&quot;method&quot;:&quot;get&quot;,&quot;url&quot;:&quot;usuarios?pagina&amp;quantidade&quot;,&quot;params&quot;:{&quot;pagina&quot;:{&quot;$options&quot;:true,&quot;default&quot;:1,&quot;type&quot;:&quot;Number&quot;},&quot;quantidade&quot;:{&quot;$options&quot;:true,&quot;default&quot;:10,&quot;type&quot;:&quot;Number&quot;}},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{}}}}}')" style="background-color: #a236f4"> Testar Api </a>
     </div>
 </div></li>
     </ul>

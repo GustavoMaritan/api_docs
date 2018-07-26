@@ -158,6 +158,125 @@ module.exports = {
                     }
                 }
             ]
+        },
+        {
+            name: 'Usuário',
+            descricao: 'Manutenção usuários do sistema',
+            routes: [
+                {
+                    name: 'Cadastrar',
+                    method: 'post',
+                    url: 'usario',
+                    bodyCase: {
+                        from: 'banco', // PARAMETRO CASE
+                        type: 'json',//default
+                        itens: [
+                            {
+                                name: 'brasil',
+                                value: {
+                                    nome: String,
+                                    idade: Number
+                                }
+                            }
+                        ]
+                    },
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {
+                                id: Number
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'Alterar',
+                    method: 'put',
+                    url: 'usuario/:id',
+                    params: {
+                        id: Number
+                    },
+                    bodyCase: {
+                        from: 'banco', // PARAMETRO CASE
+                        type: 'json',//default
+                        itens: [
+                            {
+                                name: 'brasil',
+                                value: {
+                                    nome: String,
+                                    idade: Number
+                                }
+                            }
+                        ]
+                    },
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {}
+                        }
+                    }
+                },
+                {
+                    name: 'Buscar',
+                    method: 'get',
+                    url: 'usuario/:id',
+                    params: {
+                        id: Number
+                    },
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {}
+                        }
+                    }
+                },
+                {
+                    name: 'Excluir',
+                    method: 'delete',
+                    url: 'usuario/:id',
+                    params: {
+                        id: Number
+                    },
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {}
+                        }
+                    }
+                },
+                {
+                    name: 'Selecionar',
+                    method: 'get',
+                    url: 'usuarios?pagina&quantidade',
+                    params: {
+                        pagina: { $options: true, default: 1, type: Number },
+                        quantidade: { $options: true, default: 10, type: Number }
+                    },
+                    return: {
+                        type: 'json',
+                        success: {
+                            type: 'json',
+                            status: 200,
+                            content: {}
+                        }
+                    }
+                }
+            ]
         }
     ]
 }
+
+/*
+
+post - body
+Default Return
+
+*/

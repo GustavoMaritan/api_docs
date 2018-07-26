@@ -12,9 +12,15 @@ $(window).resize((x, y) => {
 $('.collapsible>li>.collapsible-header').click(function () {
     let elem = $(this).closest('.collapsible>li').find('.collapsible-body');
     $('.collapsible-body').each(function () {
-        if (this != elem[0]) $(this).css({ display: 'none' })
+        if (this != elem[0]) {
+            $(this).css({ display: 'none' })
+            $(this).closest('li').removeClass('open')
+        }
     })
-    elem.css({ display: elem.css('display') == 'none' ? 'block' : 'none' })
+    let isBlock = elem.css('display') == 'block';
+
+    elem.closest('li')[isBlock ? 'removeClass' : 'addClass']('open');
+    elem.css({ display: isBlock ? 'none' : 'block' })
 });
 
 $('.collection>.collection-item>.title').click(function () {

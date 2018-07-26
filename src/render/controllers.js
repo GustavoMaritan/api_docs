@@ -40,7 +40,7 @@ function controllers() {
             _getReturn(li.components, y.return);
 
             ctrl.lis.push({
-                opcao: (`${x.name}-${li.nome}-${li.method}`).toLowerCase(),
+                opcao: (`${x.name}-${li.nome}-${li.method}`).replace(/ /g, '').toLowerCase(),
                 html: comuns.componentCompile('body-controllers-li', li)
             });
         });
