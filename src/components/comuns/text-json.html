@@ -1,4 +1,6 @@
 <div class="col s12 card-label">@html.raw(model.t.label)</div>
+@if(model.t.value){
 <div class="col s12 json">
     @html.raw(model.t.value)
 </div>
+}

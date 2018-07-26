@@ -75,7 +75,8 @@ class JsonFormat {
         return attr.join('');
     }
 
-    _jsonObjectContentAttr(object) {
+    _jsonObjectContentAttr(obj) {
+        if (!object) return '';
         let attrs = [],
             count = 0,
             objLength = Object.keys(object).length;
@@ -87,12 +88,12 @@ class JsonFormat {
                 `<span class="json-key json-margin">"${i}"</span>`,
                 '<span class="json-sinal">:</span>'
             ];
-            switch (typeof object[i]) {
+            switch (typeof obj[i]) {
                 case 'function':
                     if (this.print)
-                        attr.push(`<span data-type="${object[i].name.toLowerCase()}" class="json-value-class">${object[i].name}</span>`);
+                        attr.push(`<span title="${object[i].name}" data-type="${object[i].name.toLowerCase()}" class="json-value-class">${object[i].name}</span>`);
                     else {
-                        attr.push(`<span data-type="${object[i].name.toLowerCase()}" class="json-value-null" data-edit="off">null</span>`);
+                        attr.push(`<span title="${object[i].name}" data-type="${object[i].name.toLowerCase()}" class="json-value-null" data-edit="off">null</span>`);
                     }
                     break;
                 case 'string':
@@ -179,19 +180,19 @@ class JsonFormat {
             descricao: obj.format && !obj.descricao
                 ? `Formato: ${obj.format}`
                 : obj.descricao
-                    ? `${obj.descricao}${obj.format ? `(${obj.format})` : ''}`
-                    : ''
+                    ? `${obj.descricao}${obj.format ? `(${obj.format})` : `(${this._toCamelCase(tp)})`}`
+                    : this._toCamelCase(tp)
         };
         return `
             <span data-type="${val.type}" 
                 title="${val.descricao}"
                 class="json-value-${val.class}" 
                 data-edit="off">${
-                    val.type == 'boolean' ||
-                    val.type == 'number' ||
-                    val.value == 'null'
-                        ? val.value
-                        : `"${val.value}"`
+            val.type == 'boolean' ||
+                val.type == 'number' ||
+                val.value == 'null'
+                ? val.value
+                : `"${val.value}"`
             }</span>
         `;
     }

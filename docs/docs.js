@@ -3,7 +3,19 @@ module.exports = {
         name: 'Payment',
         url: 'http://localhost:3000',
         prefix: 'api',
-        headers: { authorization: { type: String, descricao: 'Chave gerada pelo admin', testValue: '123' } }
+        headers: { authorization: { type: String, descricao: 'Chave gerada pelo admin', testValue: '123' } },
+        return: {
+            success: {
+                type: 'json',
+                status: 200,
+                content: null
+            },
+            error: {
+                type: 'json',
+                status: 500,
+                content: null
+            }
+        }
     },
     controllers: [
         {
@@ -19,9 +31,9 @@ module.exports = {
                         banco: { required: true, opcoes: ['brasil', 'sicredi', 'sicoob'], type: String, testValue: 'brasil' },
                         t: { default: 'print', opcoes: ['print', 'download'], type: String }
                     },
+                    bodyType: 'json', // Parametro para definir tipo body e bodyCase default=json
                     bodyCase: {
                         from: 'banco', // PARAMETRO CASE
-                        type: 'json',//default
                         itens: [
                             {
                                 name: 'brasil',
@@ -118,43 +130,27 @@ module.exports = {
                             }
                         ]
                     },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {
-                                url: { $options: true, type: String, descricao: 'Url gerada para baixar ou imprimir o boleto' },
-                                idBoleto: { $options: true, type: String, descricao: 'Id gerado no payment para relacionamento com api cliente' },
-                                parcelas: [{
-                                    numero: { $options: true, type: Number, descricao: 'Número da parcela' },
-                                    nossoNumero: { $options: true, type: String, descricao: 'Nosso número ja gerado com o dígito' },
-                                    valor: { $options: true, type: Number, descricao: 'Valor da parcela' },
-                                    dataVencimento: { $options: true, type: Date, descricao: 'Data vencimento da parcela' }
-                                }]
-                            }
+                    success: {
+                        content: {
+                            url: { $options: true, type: String, descricao: 'Url gerada para baixar ou imprimir o boleto' },
+                            idBoleto: { $options: true, type: String, descricao: 'Id gerado no payment para relacionamento com api cliente' },
+                            parcelas: [{
+                                numero: { $options: true, type: Number, descricao: 'Número da parcela' },
+                                nossoNumero: { $options: true, type: String, descricao: 'Nosso número ja gerado com o dígito' },
+                                valor: { $options: true, type: Number, descricao: 'Valor da parcela' },
+                                dataVencimento: { $options: true, type: Date, descricao: 'Data vencimento da parcela' }
+                            }]
                         }
-                    },
-                    // body:{
-                    //     type: 'json',
-                    //     content:{
-                    //         nomeParametro: value
-                    //     }
-                    // },
+                    }
                 },
                 {
                     name: 'Imprimir',
                     method: 'GET',
-                    url: '/api/ping',
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'text',
-                            status: 200,
-                            content: 'Arquivo .pdf'
-                        },
-                        error: {
-                        }
+                    url: '/ping',
+                    noPrefix: true,
+                    success: {
+                        type: 'text',
+                        content: 'Arquivo .pdf'
                     }
                 }
             ]
@@ -167,28 +163,13 @@ module.exports = {
                     name: 'Cadastrar',
                     method: 'post',
                     url: 'usario',
-                    bodyCase: {
-                        from: 'banco', // PARAMETRO CASE
-                        type: 'json',//default
-                        itens: [
-                            {
-                                name: 'brasil',
-                                value: {
-                                    nome: String,
-                                    idade: Number
-                                }
-                            }
-                        ]
+                    body: {
+                        nome: String,
+                        idade: Number
                     },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {
-                                id: Number
-                            }
-                        }
+                    //return: {} // Sobrepoem return api, desconcidera success e error declarados 
+                    success: {
+                        content: { id: Number }
                     }
                 },
                 {
@@ -198,26 +179,9 @@ module.exports = {
                     params: {
                         id: Number
                     },
-                    bodyCase: {
-                        from: 'banco', // PARAMETRO CASE
-                        type: 'json',//default
-                        itens: [
-                            {
-                                name: 'brasil',
-                                value: {
-                                    nome: String,
-                                    idade: Number
-                                }
-                            }
-                        ]
-                    },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {}
-                        }
+                    body: {
+                        nome: String,
+                        idade: Number
                     }
                 },
                 {
@@ -227,12 +191,12 @@ module.exports = {
                     params: {
                         id: Number
                     },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {}
+                    success: {
+                        content: {
+                            usuario: {
+                                nome: String,
+                                idade: Number
+                            }
                         }
                     }
                 },
@@ -242,14 +206,6 @@ module.exports = {
                     url: 'usuario/:id',
                     params: {
                         id: Number
-                    },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {}
-                        }
                     }
                 },
                 {
@@ -260,12 +216,9 @@ module.exports = {
                         pagina: { $options: true, default: 1, type: Number },
                         quantidade: { $options: true, default: 10, type: Number }
                     },
-                    return: {
-                        type: 'json',
-                        success: {
-                            type: 'json',
-                            status: 200,
-                            content: {}
+                    success: {
+                        content: {
+                            usuarios: Array
                         }
                     }
                 }
@@ -275,8 +228,15 @@ module.exports = {
 }
 
 /*
+request post - body -- OK
+request post - bodyCase (Colocar opcao por parametro)
+request post - body=json -> opcao d adicionar/remover item a lista quando attr array
 
-post - body
+opcoes para status return
+NoPrefix - Attr no objeto para nao usar prefix pra montar rota
 Default Return
-
+tipos de requisicao
+tipos de retorno
+tratar url docs
+embelezar url api na index
 */

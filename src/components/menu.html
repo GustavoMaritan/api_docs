@@ -7,7 +7,7 @@
             <li class="treeview-opcao">
                 <div data-item="@(`${x.name}-${y.name}-${y.method}`.replace(/ /g, '').toLowerCase())">
                     <div class="name">@y.name</div>
-                    <div class="method @y.method.toLowerCase()">@y.method</div>
+                    <div class="method @y.method.toLowerCase()">@y.method.toUpperCase()</div>
                 </div>
             </li>
             })

@@ -35,9 +35,9 @@ function controllers() {
             _getDescricao(li.components, y.descricao)
             _getHeader(li.components, y.headers);
             _getParams(li.components, y.params);
-            _getBody(li.components, y.body);
+            _getBody(li.components, y.body, y.bodyType);
             _getBodyCase(li.components, y.bodyCase);
-            _getReturn(li.components, y.return);
+            _getReturn(li.components, comuns.obj.api, y.return, y.success, y.error);
 
             ctrl.lis.push({
                 opcao: (`${x.name}-${li.nome}-${li.method}`).replace(/ /g, '').toLowerCase(),
@@ -93,8 +93,12 @@ function _getParams(collection, obj) {
     }));
 }
 
-function _getBody(collection, obj) {
+function _getBody(collection, obj, type) {
     if (!obj) return;
+    collection.push(comuns.componentCompile('comuns/text-json', {
+        label: `Body`,
+        value: _formatJson(obj)
+    }));
 }
 
 function _getBodyCase(collection, obj) {
@@ -105,26 +109,57 @@ function _getBodyCase(collection, obj) {
     }));
 }
 
-function _getReturn(collection, obj) {
-    if (!obj) return;
-    if (obj.success) {
-        let opt = {
-            label: obj.success.status
-                ? `Retorno <span style="color:green">${obj.success.status}</span>`
-                : 'Retorno OK'
-        };
-        switch (obj.success.type) {
-            case 'json':
-                opt.name = 'comuns/text-json';
-                opt.value = _formatJson(obj.success.content);
-                break;
-            default:
-                opt.name = 'comuns/text';
-                opt.value = obj.success.content;
-                break;
+function _getReturn(collection, apiReturn, routeReturn, success, error) {
+
+    let _return = routeReturn || apiReturn.return || {
+        success: {
+            type: 'json',
+            status: 200,
+        },
+        error: {
+            type: 'json',
+            status: 500,
         }
-        collection.push(comuns.componentCompile(opt.name, opt));
+    };
+    _return.success = Object.assign(_return.success || {}, success || {});
+    _return.error = Object.assign(_return.error || {}, error || {});
+
+    //Success
+    let opt = {
+        label: `Retorno <span style="color:green">${_return.success.status}</span>`
+    };
+
+    switch (_return.success.type) {
+        case 'text':
+            opt.name = 'comuns/text';
+            opt.value = _return.success.content;
+            break;
+        default:
+            opt.type = 'json';
+            opt.name = 'comuns/text-json';
+            opt.value = _formatJson(_return.success.content);
+            break;
     }
+    collection.push(comuns.componentCompile(opt.name, opt));
+
+    //Error
+
+    opt = {
+        label: `Retorno <span style="color:red">${_return.error.status}</span>`
+    };
+
+    switch (_return.error.type) {
+        case 'text':
+            opt.name = 'comuns/text';
+            opt.value = _return.error.content;
+            break;
+        default:
+            opt.type = 'json';
+            opt.name = 'comuns/text-json';
+            opt.value = _formatJson(_return.error.content);
+            break;
+    }
+    collection.push(comuns.componentCompile(opt.name, opt));
 }
 
 function _getGridTds(obj) {
@@ -154,6 +189,7 @@ function _getCollectionItens(obj) {
 }
 
 function _formatJson(json) {
+    if (!json) return '';
     let jsonFormat = new JsonFormat(json, true);
     return jsonFormat.init();
 }

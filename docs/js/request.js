@@ -53,11 +53,25 @@ $showRequest = () => {
             rowsBody.append(_div);
         }
 
+        if (obj.body) {
+            //bodyType
+            let _div = divCol12.clone();
+            let jsonFormat = new $JsonFormat(obj.body, false, true);
+            _div
+                .append(divCol12.clone().html('<h5>Body</h5>'))
+                .append(divCol12.clone().append($(`<div>`, {
+                    class: "col s12 json",
+                    html: jsonFormat.init()
+                }).attr('data-body', 'body')));
+            rowsBody.append(_div);
+        }
+
         if (obj.bodyCase) {
-            obj.body = obj.bodyCase.itens[0].value;
-            if (obj.body) {
+            //bodyType
+            let atePODERescolherOPCAO$GAMBI = obj.bodyCase.itens[0].value;
+            if (atePODERescolherOPCAO$GAMBI) {
                 let _div = divCol12.clone();
-                let jsonFormat = new $JsonFormat(obj.body, false, true);
+                let jsonFormat = new $JsonFormat(atePODERescolherOPCAO$GAMBI, false, true);
                 _div
                     .append(divCol12.clone().html('<h5>Body</h5>'))
                     .append(divCol12.clone().append($(`<div>`, {
