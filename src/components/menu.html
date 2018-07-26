@@ -1,0 +1,17 @@
+<ul class="treeview">
+    @model.t.controllers.forEach(x => {
+    <li class="treeview-item">
+        <div>@x.name</div>
+        <ul class="treeview-opcoes">
+            @x.routes.forEach(y => {
+            <li class="treeview-opcao">
+                <div data-item="@(`${x.name}-${y.name}-${y.method}`.toLowerCase())">
+                    <div class="name">@y.name</div>
+                    <div class="method @y.method.toLowerCase()">@y.method</div>
+                </div>
+            </li>
+            })
+        </ul>
+    </li>
+    })
+</ul>

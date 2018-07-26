@@ -19,7 +19,6 @@ $('.collapsible>li>.collapsible-header').click(function () {
 
 $('.collection>.collection-item>.title').click(function () {
     let elem = $(this).closest('.collection-item').find('.json');
-
     !$(elem).hasClass('open')
         ? $(elem).addClass('open')
         : $(elem).removeClass('open');

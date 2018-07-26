@@ -3,7 +3,7 @@
     <i>@model.t.descricao</i>
     <ul class="collapsible">
         @model.t.lis.forEach(x=>{
-            <li>@html.raw(x)</li>
+            <li data-opcao="@(x.opcao)">@html.raw(x.html)</li>
         })
     </ul>
 </div>

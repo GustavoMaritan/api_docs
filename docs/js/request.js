@@ -1,3 +1,9 @@
+$(document).on('click', '[request-close]', function () {
+    let req = $(this).closest('.request');
+    req.find('.request-content').empty();
+    req.slideUp();
+});
+
 $showRequest = () => {
     let divRow = $('<div>', { class: 'row' });
     let divCol12 = $('<div>', { class: 'col s12' });
@@ -89,11 +95,9 @@ $showRequest = () => {
         btnSubmit.click(function () {
             let _btn = this;
             let request = carregarForm(_btn);
+            if (!form.find('[data-result]').length) return send();
 
-            if (!form.find('[data-result]').length)
-                return send();
-
-            form.find('[data-result]').slideUp(() => { send() });
+            form.find('[data-result]').slideUp(() => { send(); });
             function send() {
                 let newResult = divRow.clone()
                     .css({ display: 'none' })
@@ -106,7 +110,8 @@ $showRequest = () => {
                     url: prepareUrl(api, obj.url, request.params),
                     method: obj.method.toUpperCase(),
                     headers: request.headers,
-                    data: request.body
+                    data: request.body,
+                    dataType: 'javascript'
                 }).done((res) => {
                     newResult.append(divCol12.clone()
                         .append('<div class="json">OIIIEEEEE</div>')
@@ -122,7 +127,6 @@ $showRequest = () => {
                     $(_btn).find('.loading').removeClass('on');
                 });
             }
-
             function printResult(newResult) {
                 form.find('[data-result]').remove();
                 form.append(newResult);
@@ -156,8 +160,7 @@ $showRequest = () => {
 
     function carregarForm(btn) {
         let form = $(btn).closest('form');
-        let body = form.find('[data-bodywww]').text().trim();
-
+        let body = form.find('[data-body]').text().trim();
         let request = {
             body: body ? JSON.parse(body) : undefined,
             headers: {},
@@ -226,7 +229,7 @@ $showRequest = () => {
             ? url.substr(0, url.length - 1)
             : url;
         route = route.split('?')[0];
-        route = route.split('/').join('/');
+        route = route.split('/').filter(x => x).join('/');
 
         url = prefix ? `${url}/${prefix}` : url;
         url = `${url}/${route}`;

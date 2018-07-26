@@ -39,7 +39,10 @@ function controllers() {
             _getBodyCase(li.components, y.bodyCase);
             _getReturn(li.components, y.return);
 
-            ctrl.lis.push(comuns.componentCompile('body-controllers-li', li));
+            ctrl.lis.push({
+                opcao: (`${x.name}-${li.nome}-${li.method}`).toLowerCase(),
+                html: comuns.componentCompile('body-controllers-li', li)
+            });
         });
         ctrls.push(comuns.componentCompile('body-controllers', ctrl));
     });

@@ -145,7 +145,7 @@ module.exports = {
                 {
                     name: 'Imprimir',
                     method: 'GET',
-                    url: 'boleto/imprimir',
+                    url: '/api/ping',
                     return: {
                         type: 'json',
                         success: {

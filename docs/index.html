@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DOCS</title>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -14,6 +13,7 @@
     <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/json.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/request.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/menu.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -21,10 +21,29 @@
         <div class="icon">
             <i class="material-icons">dehaze</i>
         </div>
-        <div class="title">Docs </div>
+        <div class="title">Docs Payment</div>
     </nav>
     <div class="conteudo">
-        <div class="menu"></div>
+        <div class="menu">
+            <ul class="treeview">
+    <li class="treeview-item">
+        <div>Boletos</div>
+        <ul class="treeview-opcoes">
+            <li class="treeview-opcao">
+                <div data-item="boletos-gerar-post">
+                    <div class="name">Gerar</div>
+                    <div class="method post">POST</div>
+                </div>
+            </li><li class="treeview-opcao">
+                <div data-item="boletos-imprimir-get">
+                    <div class="name">Imprimir</div>
+                    <div class="method get">GET</div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
+        </div>
         <div class="menu-aguarde"></div>
         <div class="corpo">
             <div class="row">
@@ -51,7 +70,7 @@
     <h5>Boletos</h5>
     <i>Manutenção de boletos</i>
     <ul class="collapsible">
-        <li><div class="collapsible-header">
+        <li data-opcao="boletos-gerar-post"><div class="collapsible-header">
     <span style="text-transform: uppercase;font-weight: bold;">POST</span>
     <span style="padding-left: 20px;color: #848484;">Gerar</span>
 </div>
@@ -113,16 +132,16 @@
     <div class="row" style="text-align: right;">
         <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Boletos&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Gerar&quot;,&quot;method&quot;:&quot;POST&quot;,&quot;url&quot;:&quot;boleto/:banco?t&quot;,&quot;descricao&quot;:&quot;Método responsavel por gerar boleto e retornar url para impressão ou download.&quot;,&quot;params&quot;:{&quot;banco&quot;:{&quot;required&quot;:true,&quot;opcoes&quot;:[&quot;brasil&quot;,&quot;sicredi&quot;,&quot;sicoob&quot;],&quot;type&quot;:&quot;String&quot;,&quot;testValue&quot;:&quot;brasil&quot;},&quot;t&quot;:{&quot;default&quot;:&quot;print&quot;,&quot;opcoes&quot;:[&quot;print&quot;,&quot;download&quot;],&quot;type&quot;:&quot;String&quot;}},&quot;bodyCase&quot;:{&quot;from&quot;:&quot;banco&quot;,&quot;type&quot;:&quot;json&quot;,&quot;itens&quot;:[{&quot;name&quot;:&quot;brasil&quot;,&quot;value&quot;:{&quot;dataImpressao&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;,&quot;descricao&quot;:&quot;Data impressão do boleto&quot;,&quot;format&quot;:&quot;dd/MM/yyyy&quot;,&quot;default&quot;:&quot;01/01/2000&quot;,&quot;testValue&quot;:&quot;01/01/2000&quot;},&quot;dataGeracaoBoleto&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;numeroDocumento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;especie&quot;:{&quot;$options&quot;:true,&quot;descricao&quot;:&quot;Especie fornecida pelo banco&quot;},&quot;carteira&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;numeroConvenio&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;pagador&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;format&quot;:&quot;xxxxx xxxxx xxxxx&quot;},&quot;edereco&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cep&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;beneficiario&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigo&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigoDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agencia&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agenciaDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;parcelas&quot;:[{&quot;numero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;valor&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;vencimento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;nossoNumero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}}]}},{&quot;name&quot;:&quot;sicredi&quot;,&quot;value&quot;:{&quot;dataImpressao&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;dataGeracaoBoleto&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;numeroDocumento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;especie&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;carteira&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;numeroConvenio&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;pagador&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;edereco&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cep&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;beneficiario&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigo&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigoDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agencia&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agenciaDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;parcelas&quot;:[{&quot;numero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;valor&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;vencimento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;nossoNumero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}}]}},{&quot;name&quot;:&quot;sicoob&quot;,&quot;value&quot;:{&quot;dataImpressao&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;dataGeracaoBoleto&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;numeroDocumento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;especie&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;carteira&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;numeroConvenio&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;pagador&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;edereco&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cep&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;beneficiario&quot;:{&quot;nome&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;cpfCnpj&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigo&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;codigoDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agencia&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;},&quot;agenciaDigito&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}},&quot;parcelas&quot;:[{&quot;numero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;valor&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;},&quot;vencimento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;},&quot;nossoNumero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;}}]}}]},&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;status&quot;:200,&quot;content&quot;:{&quot;url&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Url gerada para baixar ou imprimir o boleto&quot;},&quot;idBoleto&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Id gerado no payment para relacionamento com api cliente&quot;},&quot;parcelas&quot;:[{&quot;numero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;,&quot;descricao&quot;:&quot;Número da parcela&quot;},&quot;nossoNumero&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Nosso número ja gerado com o dígito&quot;},&quot;valor&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Number&quot;,&quot;descricao&quot;:&quot;Valor da parcela&quot;},&quot;dataVencimento&quot;:{&quot;$options&quot;:true,&quot;type&quot;:&quot;Date&quot;,&quot;descricao&quot;:&quot;Data vencimento da parcela&quot;}}]}}}}}')" style="background-color: #a236f4"> Testar Api </a>
     </div>
-</div></li><li><div class="collapsible-header">
+</div></li><li data-opcao="boletos-imprimir-get"><div class="collapsible-header">
     <span style="text-transform: uppercase;font-weight: bold;">GET</span>
     <span style="padding-left: 20px;color: #848484;">Imprimir</span>
 </div>
 <div class="collapsible-body">
     <div class="row"><div class="col s12 card-label">Url</div>
-<div class="col s12 card-text">http://localhost:3000/api/boleto/imprimir</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
+<div class="col s12 card-text">http://localhost:3000/api//api/ping</div></div><div class="row"><div class="col s12 card-label">Retorno <span style="color:green">200</span></div>
 <div class="col s12 card-text">Arquivo .pdf</div></div>
     <div class="row" style="text-align: right;">
-        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Boletos&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Imprimir&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;url&quot;:&quot;boleto/imprimir&quot;,&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;text&quot;,&quot;status&quot;:200,&quot;content&quot;:&quot;Arquivo .pdf&quot;},&quot;error&quot;:{}}}}')" style="background-color: #a236f4"> Testar Api </a>
+        <a class="btn" onclick="apiTest('{&quot;api&quot;:{&quot;name&quot;:&quot;Payment&quot;,&quot;url&quot;:&quot;http://localhost:3000&quot;,&quot;prefix&quot;:&quot;api&quot;,&quot;headers&quot;:{&quot;authorization&quot;:{&quot;type&quot;:&quot;String&quot;,&quot;descricao&quot;:&quot;Chave gerada pelo admin&quot;,&quot;testValue&quot;:&quot;123&quot;}}},&quot;controller&quot;:&quot;Boletos&quot;,&quot;route&quot;:{&quot;name&quot;:&quot;Imprimir&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;url&quot;:&quot;/api/ping&quot;,&quot;return&quot;:{&quot;type&quot;:&quot;json&quot;,&quot;success&quot;:{&quot;type&quot;:&quot;text&quot;,&quot;status&quot;:200,&quot;content&quot;:&quot;Arquivo .pdf&quot;},&quot;error&quot;:{}}}}')" style="background-color: #a236f4"> Testar Api </a>
     </div>
 </div></li>
     </ul>
@@ -130,8 +149,8 @@
             </div>
         </div>
         <div class="request">
-            <div class="request-content">
-            </div>
+            <div class="request-back" request-close></div>
+            <div class="request-content"></div>
         </div>
     </div>
 
@@ -141,6 +160,7 @@
     <script src="js/site.js"></script>
     <script src="js/json.js"></script>
     <script src="js/request.js"></script>
+    <script src="js/menu.js"></script>
 
     <script>
         let showRequest = $showRequest();
@@ -149,7 +169,6 @@
             let obj = JSON.parse(value);
             showRequest.create(obj.api, obj.controller, obj.route)
         }
-
     </script>
 </body>
 

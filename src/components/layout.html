@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DOCS</title>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -14,6 +13,7 @@
     <link href="css/controllers.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/json.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="css/request.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/menu.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body>
@@ -21,10 +21,12 @@
         <div class="icon">
             <i class="material-icons">dehaze</i>
         </div>
-        <div class="title">Docs @model.title</div>
+        <div class="title">Docs @model.t.title</div>
     </nav>
     <div class="conteudo">
-        <div class="menu"></div>
+        <div class="menu">
+            @html.raw(model.t.menu)
+        </div>
         <div class="menu-aguarde"></div>
         <div class="corpo">
             <div class="row">
@@ -32,8 +34,8 @@
             </div>
         </div>
         <div class="request">
-            <div class="request-content">
-            </div>
+            <div class="request-back" request-close></div>
+            <div class="request-content"></div>
         </div>
     </div>
 
@@ -43,6 +45,7 @@
     <script src="js/site.js"></script>
     <script src="js/json.js"></script>
     <script src="js/request.js"></script>
+    <script src="js/menu.js"></script>
 
     <script>
         let showRequest = $showRequest();
@@ -51,7 +54,6 @@
             let obj = JSON.parse(value);
             showRequest.create(obj.api, obj.controller, obj.route)
         }
-
     </script>
 </body>
 
