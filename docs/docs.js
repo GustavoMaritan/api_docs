@@ -6,14 +6,15 @@ module.exports = {
         headers: { authorization: { type: String, descricao: 'Chave gerada pelo admin', testValue: '123' } },
         return: {
             success: {
-                type: 'json',
                 status: 200,
                 content: null
             },
             error: {
-                type: 'json',
                 status: 500,
-                content: null
+                content: {
+                    messages: [],
+                    fields: {}
+                }
             }
         }
     },
@@ -149,9 +150,9 @@ module.exports = {
                     url: '/ping',
                     noPrefix: true,
                     success: {
-                        type: 'text',
                         content: 'Arquivo .pdf'
-                    }
+                    },
+                    error: String
                 }
             ]
         },

@@ -49,6 +49,7 @@ class JsonFormat {
             count = 0,
             objLength = Object.keys(object).length;
         for (let i in object) {
+            if (object[i] == null) continue;
             let virgula = true;
             count++;
             let attr = [
@@ -86,14 +87,18 @@ class JsonFormat {
                                     attr.push(`<span class="json-value-string json-margin">${object[i]}</span>`);
                                 }
                             });
-                            attr.push('<span class="json-sinal json-margin">]</span>');
+                            attr.push(`<span class="json-sinal ${object[i].length ? 'json-margin' : ''}">]</span>`);
                         } else {
-                            attr.push(this._jsonObjectContentAttr(object[i]));
-                            attr.push('<span class="json-sinal json-margin">}</span>');
+                            if (Object.keys(object[i]).length) {
+                                attr.push(this._jsonObjectContentAttr(object[i]));
+                                attr.push(`<span class="json-sinal json-margin">}</span>`);
+                            } else {
+                                attr.push(`<span class="json-sinal">}</span>`);
+                            }
                         }
                     } else {
                         if (this.print) {
-                            attr.push(this._infoJSonPrint(object[i]));
+                            attr.push(this._infoJSonPrint(object[i], count < objLength));
                             virgula = false;
                         }
                     }
@@ -107,7 +112,7 @@ class JsonFormat {
         return attrs.join('');
     }
 
-    _infoJSonPrint(obj) {
+    _infoJSonPrint(obj, next) {
         let html = [];
         if (obj.type) {
             html.push(`<span class="json-value-class">${
@@ -121,7 +126,7 @@ class JsonFormat {
         } else {
             html.push(`<span class="json-value-class">String</span>`);
         }
-        html.push('<span class="json-sinal">,</span>');
+        if (next) html.push('<span class="json-sinal">,</span>');
         if (obj.descricao)
             html.push(`<span class="json-value-coment">//${obj.descricao + (obj.format ? `(${obj.format})` : '')}</span>`);
         if (obj.format && !obj.descricao)

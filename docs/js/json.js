@@ -75,7 +75,7 @@ class JsonFormat {
         return attr.join('');
     }
 
-    _jsonObjectContentAttr(obj) {
+    _jsonObjectContentAttr(object) {
         if (!object) return '';
         let attrs = [],
             count = 0,
@@ -88,7 +88,7 @@ class JsonFormat {
                 `<span class="json-key json-margin">"${i}"</span>`,
                 '<span class="json-sinal">:</span>'
             ];
-            switch (typeof obj[i]) {
+            switch (typeof object[i]) {
                 case 'function':
                     if (this.print)
                         attr.push(`<span title="${object[i].name}" data-type="${object[i].name.toLowerCase()}" class="json-value-class">${object[i].name}</span>`);
@@ -118,18 +118,21 @@ class JsonFormat {
                                     attr.push(`<span class="json-value-string json-margin">${object[i]}</span>`);
                                 }
                             });
-                            attr.push('<span class="json-sinal json-margin">]</span>');
+                            attr.push(`<span class="json-sinal ${object[i].length ? 'json-margin' : ''}">]</span>`);
                         } else {
-                            attr.push(this._jsonObjectContentAttr(object[i]));
-                            attr.push('<span class="json-sinal json-margin">}</span>');
+                            if (Object.keys(object[i]).length) {
+                                attr.push(this._jsonObjectContentAttr(object[i]));
+                                attr.push(`<span class="json-sinal json-margin">}</span>`);
+                            } else {
+                                attr.push(`<span class="json-sinal">}</span>`);
+                            }
                         }
                     } else {
                         if (this.print) {
-                            attr.push(this._infoJSonPrint(object[i]));
+                            attr.push(this._infoJSonPrint(object[i], count < objLength));
                             virgula = false;
-                        } else {
+                        } else
                             attr.push(this._infoJSonEdit(object[i]));
-                        }
                     }
                     break;
             }
@@ -141,7 +144,7 @@ class JsonFormat {
         return attrs.join('');
     }
 
-    _infoJSonPrint(obj) {
+    _infoJSonPrint(obj, next) {
         let html = [];
         if (obj.type) {
             html.push(`<span class="json-value-class">${
@@ -155,7 +158,7 @@ class JsonFormat {
         } else {
             html.push(`<span class="json-value-class">String</span>`);
         }
-        html.push('<span class="json-sinal">,</span>');
+        if (next) html.push('<span class="json-sinal">,</span>');
         if (obj.descricao)
             html.push(`<span class="json-value-coment">//${obj.descricao + (obj.format ? `(${obj.format})` : '')}</span>`);
         if (obj.format && !obj.descricao)

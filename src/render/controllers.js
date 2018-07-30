@@ -5,7 +5,6 @@ module.exports = controllers;
 
 function controllers() {
     let ctrls = [];
-    const _urlApi = comuns.obj.api.url + '/' + comuns.obj.api.prefix + '/';
 
     comuns.obj.controllers.forEach(x => {
         let ctrl = {
@@ -24,12 +23,12 @@ function controllers() {
                 method: y.method,
                 nome: y.name,
                 components: [],
-                json: JSON.stringify(_newObj)//''// 
-            }
+                json: JSON.stringify(_newObj)
+            };
 
             li.components.push(comuns.componentCompile('comuns/text', {
                 label: 'Url',
-                value: _urlApi + y.url
+                value: getUrl(comuns.obj.api, y.url)
             }));
 
             _getDescricao(li.components, y.descricao)
@@ -111,55 +110,40 @@ function _getBodyCase(collection, obj) {
 
 function _getReturn(collection, apiReturn, routeReturn, success, error) {
 
-    let _return = routeReturn || apiReturn.return || {
-        success: {
-            type: 'json',
-            status: 200,
-        },
-        error: {
-            type: 'json',
-            status: 500,
-        }
-    };
+    let _return = JSON.parse(JSON.stringify((routeReturn || apiReturn.return || {})));
     _return.success = Object.assign(_return.success || {}, success || {});
     _return.error = Object.assign(_return.error || {}, error || {});
 
-    //Success
-    let opt = {
-        label: `Retorno <span style="color:green">${_return.success.status}</span>`
-    };
+    _ret(_return.success, true);
+    _ret(_return.error);
 
-    switch (_return.success.type) {
-        case 'text':
-            opt.name = 'comuns/text';
-            opt.value = _return.success.content;
-            break;
-        default:
-            opt.type = 'json';
-            opt.name = 'comuns/text-json';
-            opt.value = _formatJson(_return.success.content);
-            break;
+    function _ret(obj, success) {
+        let labelDisplay = success ? `Success` : 'Error';
+
+        let label = obj.status || obj.statusCode || obj.httpCode || obj.code;
+        label = !label ? '' : typeof label == 'object' ? '' : label;
+
+        let opt = {
+            label: `${label ? labelDisplay : `<span style="color:${success ? 'green' : 'red'}">${labelDisplay}</span>`}`
+                + ` ${label ? `<span style="color:${success ? 'green' : 'red'}">${label}</span>` : ''}`,
+            type: 'text',
+            name: 'comuns/text'
+        };
+
+        switch (typeof obj) {
+            case 'object':
+                opt.type = 'json';
+                opt.name = 'comuns/text-json';
+                opt.value = _formatJson(obj);
+                break;
+            default:
+                opt.value = typeof obj == 'function'
+                    ? obj.name.split('').map((x, i) => { return i == 0 ? x.toUpperCase() : x.toLowerCase() }).join('')
+                    : obj;
+                break;
+        }
+        collection.push(comuns.componentCompile(opt.name, opt));
     }
-    collection.push(comuns.componentCompile(opt.name, opt));
-
-    //Error
-
-    opt = {
-        label: `Retorno <span style="color:red">${_return.error.status}</span>`
-    };
-
-    switch (_return.error.type) {
-        case 'text':
-            opt.name = 'comuns/text';
-            opt.value = _return.error.content;
-            break;
-        default:
-            opt.type = 'json';
-            opt.name = 'comuns/text-json';
-            opt.value = _formatJson(_return.error.content);
-            break;
-    }
-    collection.push(comuns.componentCompile(opt.name, opt));
 }
 
 function _getGridTds(obj) {
@@ -192,4 +176,13 @@ function _formatJson(json) {
     if (!json) return '';
     let jsonFormat = new JsonFormat(json, true);
     return jsonFormat.init();
+}
+
+function getUrl(api, route) {
+    let _url = api.url.split('//');
+    return [
+        _url[0] + '//' + _url[1].split('/').filter(x => x).join('/'),
+        api.prefix ? api.prefix.split('/').filter(x => x).join('/') : '',
+        route ? route.split('/').filter(x => x).join('/') : ''
+    ].filter(x => x).join('/');
 }
