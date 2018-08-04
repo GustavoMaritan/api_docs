@@ -39,7 +39,7 @@ const comuns = require('./render/comuns');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = init;
+module.exports = init();
 
 function init() {
     let header = _header();

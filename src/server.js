@@ -2,11 +2,11 @@
 
 const commander = require('commander');
 const path = require('path');
-const fs = require('fs');
-const app = require('./app');
+const fse = require('fs-extra');
 
 $client = process.cwd();
-$server = __dirname;
+$server = path.join(__dirname, '..');
+$docs = null;
 
 commander
     .version('1.0.0')
@@ -17,12 +17,14 @@ commander
     .alias('c')
     .description('Lista todos packages disponiveis.')
     .action(async () => {
-        let a = require(path.join($client, 'docs.js'));
-
-
-        
-        console.log(a)
-        let aaa = '';
+        try {
+            $docs = require(path.join($client, 'docs.js'));
+            const html = require('./app');
+            fse.writeFileSync(path.join($server, 'docs', 'index.html'), html, 'utf8');
+            fse.copySync(path.join($server, 'docs'), path.join($client, 'docs_ex'));
+        } catch (error) {
+            console.log(error.message);
+        }
     })
     .on('--help', function () {
         console.log();
@@ -32,6 +34,3 @@ commander
     });
 
 commander.parse(process.argv);
-
-
-//fs.writeFileSync('./docs/index.html', layout, 'utf8');

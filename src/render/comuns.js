@@ -1,7 +1,8 @@
 const vash = require('vash');
 const fs = require('fs');
 const path = require('path');
-const docs_obj = require('../../docs/docs');
+const docs_obj = $docs;
+//require('../../docs/docs');
 
 module.exports = {
     obj: docs_obj,
