@@ -37,8 +37,9 @@ const _controllers = require('./render/controllers');
 const _menu = require('./render/menu');
 const comuns = require('./render/comuns');
 const fs = require('fs');
+const path = require('path');
 
-init();
+module.exports = init;
 
 function init() {
     let header = _header();
@@ -49,9 +50,9 @@ function init() {
         title: comuns.obj.api.name,
         menu: menu,
         conteudo: header + controllers.join('')
-    })
+    });
 
-    fs.writeFileSync('./docs/index.html', layout, 'utf8');
-    process.exit(-1);
+    return layout;
+
+    //fs.writeFileSync('./docs/index.html', layout, 'utf8');
 }
-

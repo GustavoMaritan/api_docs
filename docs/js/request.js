@@ -23,6 +23,15 @@ $showRequest = () => {
         $('select').formSelect();
     }
 
+    function _getUrl(api, route) {
+        let _url = api.url.split('//');
+        return [
+            _url[0] + '//' + _url[1].split('/').filter(x => x).join('/'),
+            api.prefix ? api.prefix.split('/').filter(x => x).join('/') : '',
+            route ? route.split('/').filter(x => x).join('/') : ''
+        ].filter(x => x).join('/');
+    }
+
     function gerarRequest(api, controller, obj) {
         obj = obj || {};
         let headers = { ...api.headers, ...obj.headers };
@@ -35,7 +44,7 @@ $showRequest = () => {
                 divRow.clone()
                     .append(divCol12.clone().append(divReqCard.clone().html(controller)))
                     .append(divCol12.clone().append(divReqCard.clone().html(`${obj.method} - ${obj.name}`)))
-                    .append(divCol12.clone().append(divReqCard.clone().html(`${api.url}/${api.prefix}/${obj.url}`)))
+                    .append(divCol12.clone().append(divReqCard.clone().html(_getUrl(api, obj.url))))
             );
 
         //HEADERS, PARAMS, BODY
