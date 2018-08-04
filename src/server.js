@@ -15,10 +15,13 @@ commander
 commander
     .command('create')
     .alias('c')
+    .option("-p, --path [value]", "Informar caminho e nome do arquivo de configuração.")
     .description('Lista todos packages disponiveis.')
-    .action(async () => {
+    .action(async (options) => {
         try {
-            $docs = require(path.join($client, 'docs.js'));
+            let _path = options.path || '';
+
+            $docs = require(path.join($client, _path, 'docs.js'));
             const html = require('./app');
             fse.writeFileSync(path.join($server, 'docs', 'index.html'), html, 'utf8');
             fse.copySync(path.join($server, 'docs'), path.join($client, 'docs_ex'));
