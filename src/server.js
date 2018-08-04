@@ -3,6 +3,7 @@
 const commander = require('commander');
 const path = require('path');
 const fs = require('fs');
+const app = require('./app');
 
 $client = process.cwd();
 $server = __dirname;
@@ -17,6 +18,9 @@ commander
     .description('Lista todos packages disponiveis.')
     .action(async () => {
         let a = require(path.join($client, 'docs.js'));
+
+
+        
         console.log(a)
         let aaa = '';
     })
@@ -28,3 +32,6 @@ commander
     });
 
 commander.parse(process.argv);
+
+
+//fs.writeFileSync('./docs/index.html', layout, 'utf8');
