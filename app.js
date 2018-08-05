@@ -6,6 +6,8 @@ const express = require('express'),
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+require('./docs/middleware')(express, app);
+
 app.use((req, res, next) => {
     res.header('Content-Type', 'application/json; charset=utf-8');
     res.header("Access-Control-Allow-Origin", "*");
@@ -17,8 +19,6 @@ app.use((req, res, next) => {
         return res.status(204).end();
     next();
 });
-
-require('./docs/middleware')(express, app);
 
 app.get('/api/ping', (req, res) => {
     res.status(200).json({ ok: 'OK' })
