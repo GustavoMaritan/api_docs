@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+scenarios:
+  -
+    name: 'Listagem de usuários'
+    flow:
+    - get:
+        url: "/api/ping"
+  -
+    name: 'Listagem de usuários 2'
+    flow:
+    - get:
+        url: "/api/ping"

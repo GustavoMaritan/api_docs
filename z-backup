@@ -1,0 +1,26 @@
+module.exports = {
+    api: {
+        name: '',
+        url: '',
+        prefix: '',
+        headers: {},
+        return: {},
+    controllers: [
+        {
+            name: '',
+            descricao: '',
+            routes: [
+                {
+                    name: '',
+                    method: '',
+                    url: '',
+                    descricao: '',
+                    params: {},
+                    bodyType: '',
+                    bodyCase: {},
+                    success: {}
+                }
+            ]
+        }
+    ]
+}
